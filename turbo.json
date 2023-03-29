@@ -29,7 +29,8 @@
     "type-check": {
       "dependsOn": ["^db-generate"],
       "cache": false
-    }
+    },
+    "test": {}
   },
   "globalEnv": [
     "DATABASE_URL",
