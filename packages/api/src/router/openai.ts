@@ -38,8 +38,7 @@ export const openaiRouter = router({
         );
       } catch (error: unknown) {
         if (isAPIError(error)) {
-          const { status, code, message, details } = error;
-          console.log(details); // log details to a monitoring service
+          const { status, code, message } = error;
           return {
             status,
             code,
