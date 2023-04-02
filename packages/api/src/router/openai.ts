@@ -1,4 +1,5 @@
 import { router, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 // Type guard function to check if the error object is an API error
@@ -19,7 +20,7 @@ const isAPIError = (
 export const openaiRouter = router({
   chatCompletion: protectedProcedure
     .input(z.string())
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       try {
         const completion = await ctx.openai.createChatCompletion({
           model: "gpt-3.5-turbo",
@@ -32,25 +33,28 @@ export const openaiRouter = router({
         });
 
         return (
-          completion?.data?.choices?.[0] || [
-            { message: { role: "assistant", content: "" } },
-          ]
+          completion?.data?.choices?.[0] || {
+            message: { role: "assistant", content: "" },
+          }
         );
       } catch (error: unknown) {
         if (isAPIError(error)) {
-          const { status, code, message } = error;
-          return {
-            status,
-            code,
+          const { message } = error;
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
             message: `An error occurred while processing the OpenAI API request: ${message}`,
-          };
+            // optional: pass the original error to retain stack trace
+            cause: error, // log to a monitoring tool
+          });
         } else {
-          return {
-            status: "error",
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
             message: `An error occurred while processing the request: ${
               (error as Error).message
             }`,
-          };
+            // optional: pass the original error to retain stack trace
+            // cause: error, log to a monitoring tool
+          });
         }
       }
     }),

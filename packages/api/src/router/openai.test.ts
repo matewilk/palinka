@@ -48,11 +48,9 @@ describe("openaiRouter", () => {
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
       const input: Input = "Hello";
 
-      const result = await caller.openai.chatCompletion(input);
-
-      expect(result).toMatchObject({
-        message: "An error occurred while processing the request: test",
-      });
+      await expect(caller.openai.chatCompletion(input)).rejects.toThrowError(
+        "An error occurred while processing the request: test",
+      );
     });
 
     it("should return API error when something goes wrong", async () => {
@@ -68,14 +66,9 @@ describe("openaiRouter", () => {
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
       const input: Input = "Hello";
 
-      const result = await caller.openai.chatCompletion(input);
-
-      expect(result).toMatchObject({
-        status: 400,
-        code: "test code",
-        message:
-          "An error occurred while processing the OpenAI API request: test message",
-      });
+      await expect(caller.openai.chatCompletion(input)).rejects.toThrowError(
+        "An error occurred while processing the OpenAI API request: test message",
+      );
     });
   });
 });
