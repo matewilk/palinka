@@ -1,10 +1,13 @@
-import React from "react";
+import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "../screens/home";
+import { QuestionScreen } from "../screens/question";
+import { ChatScreen } from "../screens/chat";
 
-type MainStackParamList = {
+export type MainStackParamList = {
   Home: undefined;
-  Profile: undefined;
+  Question: undefined;
+  Chat: undefined;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -13,9 +16,11 @@ function MainStackNavigator() {
   return (
     <MainStack.Navigator
       initialRouteName="Home"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: true }}
     >
       <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Question" component={QuestionScreen} />
+      <MainStack.Screen name="Chat" component={ChatScreen} />
     </MainStack.Navigator>
   );
 }
