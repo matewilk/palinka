@@ -5,6 +5,11 @@ import { createNextApiHandler } from "@trpc/server/adapters/next";
 export default createNextApiHandler({
   router: appRouter,
   createContext,
+  onError({ error }) {
+    if (error.code === "INTERNAL_SERVER_ERROR") {
+      // console.error(error); log to a monitoring tool
+    }
+  },
 });
 
 // If you need to enable cors, you can do so like this:
