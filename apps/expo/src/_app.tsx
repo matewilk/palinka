@@ -3,6 +3,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ClerkProvider } from "@clerk/clerk-expo";
+import { SheetProvider } from "react-native-actions-sheet";
 
 import { TRPCProvider } from "./utils/trpc";
 import { tokenCache } from "./utils/cache";
@@ -18,8 +19,10 @@ export const App = () => {
       >
         <TRPCProvider>
           <SafeAreaProvider>
-            <AppNavigator />
-            <StatusBar />
+            <SheetProvider>
+              <AppNavigator />
+              <StatusBar />
+            </SheetProvider>
           </SafeAreaProvider>
         </TRPCProvider>
       </ClerkProvider>

@@ -4,10 +4,19 @@ import { HomeScreen } from "../screens/home";
 import { QuestionScreen } from "../screens/question";
 import { ChatScreen } from "../screens/chat";
 
+export type Message = {
+  role: "system" | "user";
+  content: string;
+};
+
 export type MainStackParamList = {
   Home: undefined;
-  Question: undefined;
-  Chat: undefined;
+  Question: {
+    message: Message;
+  };
+  Chat: {
+    messages: Message[];
+  };
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();

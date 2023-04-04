@@ -1,6 +1,71 @@
-import React from "react";
+import { useRef } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
+
+import ActionSheet, {
+  ActionSheetRef,
+  SheetProps,
+  SheetManager,
+} from "react-native-actions-sheet";
+
+const selection = [
+  {
+    title: "Compose Parent Note",
+    message: { role: "system", content: "What is the purpose of this note?" },
+  },
+  {
+    title: "Polish Document",
+    message: {
+      role: "system",
+      content: "What is the purpose of this document?",
+    },
+  },
+  {
+    title: "Create Lesson Plan",
+    message: {
+      role: "system",
+      content: "What is the purpose of this lesson plan?",
+    },
+  },
+];
+
+const Selection = ({
+  title,
+  onPress,
+}: {
+  title: string;
+  onPress: () => void;
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      className="mt-4 h-10 w-full items-center justify-center rounded-lg border"
+    >
+      <Text>{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
+  const actionSheetRef = useRef<ActionSheetRef>(null);
+  const { navigation } = payload;
+  return (
+    <ActionSheet ref={actionSheetRef} id={sheetId}>
+      <View className="p-4">
+        <View>
+          {selection.map(({ title, message }) => (
+            <Selection
+              title={title}
+              onPress={() => {
+                navigation.navigate("Question", { message });
+              }}
+            />
+          ))}
+        </View>
+      </View>
+    </ActionSheet>
+  );
+};
 
 import { MainStackParamList } from "../navigation/MainStackNavigator";
 
@@ -12,11 +77,6 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
       <View className="h-full w-full p-4">
         {/* Container for the avatar icon, text, and button */}
         <View className="flex-1 items-center justify-start pt-24">
-          {/* Rounded avatar icon */}
-          {/* <Image
-            source={{ uri: "https://your-avatar-url-here" }}
-            className="h-24 w-24 rounded-full"
-          /> */}
           <View className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
             <Text className="text-4xl font-bold text-gray-500">P</Text>
           </View>
@@ -32,7 +92,7 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           <View className="flex-1 items-center justify-end pb-4">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Question");
+                SheetManager.show("1");
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >
@@ -41,6 +101,7 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
       </View>
+      <TaskSelectionSheet sheetId="1" payload={{ navigation: navigation }} />
     </SafeAreaView>
   );
 };

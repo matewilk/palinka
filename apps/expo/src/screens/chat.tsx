@@ -58,7 +58,15 @@ const ChatCompletion: React.FC = () => {
     </View>
   );
 };
-export const ChatScreen = () => {
+
+import type { StackScreenProps } from "@react-navigation/stack";
+import { MainStackParamList } from "../navigation/MainStackNavigator";
+
+type ChatScreenProps = StackScreenProps<MainStackParamList, "Chat">;
+
+export const ChatScreen = ({ route }: ChatScreenProps) => {
+  const { messages } = route.params;
+  console.log(messages);
   return (
     <SafeAreaView className="">
       <View className="h-full w-full p-4">
