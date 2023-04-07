@@ -1,39 +1,14 @@
 import { useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TextInputProps,
-} from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
 
 import {
   MainStackParamList,
   type Message,
 } from "../navigation/MainStackNavigator";
+import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 
 type QuestionScreenProps = StackScreenProps<MainStackParamList, "Question">;
-
-const AutoExpandingTextInput = (props: TextInputProps) => {
-  const [text, setText] = useState<string>("");
-  const [height, setHeight] = useState<number>(0);
-  return (
-    <TextInput
-      {...props}
-      multiline={true}
-      onChange={(event) => {
-        setText(event.nativeEvent.text);
-      }}
-      onContentSizeChange={(event) => {
-        setHeight(event.nativeEvent.contentSize.height);
-      }}
-      style={[props.style, { height: Math.max(5, height) }]}
-      value={text}
-    />
-  );
-};
 
 export const QuestionScreen = ({ navigation, route }: QuestionScreenProps) => {
   const [userMessage, setUserMessage] = useState<Message>({

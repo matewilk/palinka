@@ -1,60 +1,22 @@
-import React from "react";
-
-import {
-  Button,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useEffect, useState, useRef } from "react";
+import { Button, Text, ScrollView, TouchableOpacity, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { useAuth } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { trpc } from "../utils/trpc";
+import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 
 const SignOut = () => {
   const { signOut } = useAuth();
   return (
-    <View className="rounded-lg border-2 border-gray-500 p-4">
+    <View className="w-full rounded-lg p-4">
       <Button
         title="Sign Out"
         onPress={() => {
           signOut();
         }}
       />
-    </View>
-  );
-};
-
-const ChatCompletion: React.FC = () => {
-  const [prompt, setPrompt] = React.useState("This is a test");
-
-  const { mutate, data } = trpc.openai.chatCompletion.useMutation();
-
-  const handlePromptChange = (newPrompt: string) => {
-    setPrompt(newPrompt);
-  };
-
-  return (
-    <View className="flex flex-col border-t-2 border-gray-500 p-4">
-      <TextInput
-        className="mb-2 rounded border-2 border-gray-500 p-2"
-        onChangeText={handlePromptChange}
-        placeholder="Prompt"
-      />
-      <TouchableOpacity
-        className="rounded bg-[#cc66ff] p-2"
-        onPress={() => {
-          mutate(prompt);
-        }}
-      >
-        <Text className="font-semibold">Get response</Text>
-      </TouchableOpacity>
-
-      <ScrollView className="min-h-40">
-        {data && <Text className="mt-2">{data?.message?.content}</Text>}
-      </ScrollView>
     </View>
   );
 };
@@ -66,15 +28,57 @@ type ChatScreenProps = StackScreenProps<MainStackParamList, "Chat">;
 
 export const ChatScreen = ({ route }: ChatScreenProps) => {
   const { messages } = route.params;
-  console.log(messages);
+  const isFocused = useIsFocused();
+  const [prompt, setPrompt] = useState("");
+  const hadLoadedRef = useRef(false);
+
+  const { mutate, data, isLoading } = trpc.openai.chatCompletion.useMutation();
+
+  useEffect(() => {
+    if (isFocused && !hadLoadedRef.current) {
+      hadLoadedRef.current = true;
+      mutate(messages[1]?.content || "");
+    }
+  }, [isFocused]);
+
+  const handlePromptChange = (newPrompt: string) => {
+    setPrompt(newPrompt);
+  };
+
   return (
     <SafeAreaView className="">
       <View className="h-full w-full p-4">
-        <Text className="mx-auto pb-2 text-4xl font-bold">
-          Your <Text className="text-[#cc66ff]">AI</Text> Assistant
-        </Text>
-        <ChatCompletion />
-        <SignOut />
+        {/* display result */}
+        <View className="flex-1 items-center justify-start pt-24">
+          <ScrollView className="mt-2 w-full">
+            {isLoading && <Text>Loading...</Text>}
+            {data && <Text>{data?.message?.content}</Text>}
+          </ScrollView>
+        </View>
+        {/* input */}
+        <View className="flex-1 items-center justify-end">
+          <View className="flex w-full flex-row p-4">
+            <View className="w-3/4 pr-1">
+              <AutoExpandingTextInput
+                className="mb-2 rounded border-2 border-gray-500 p-2"
+                onChangeText={handlePromptChange}
+                placeholder="How can I improve the results?"
+              />
+            </View>
+            <View className="w-1/4 pl-2">
+              <TouchableOpacity
+                className="flex items-center rounded bg-[#cc66ff] p-2"
+                onPress={() => {
+                  mutate(prompt);
+                }}
+              >
+                <Text className="font-semibold">Send</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* signout button */}
+          <SignOut />
+        </View>
       </View>
     </SafeAreaView>
   );
