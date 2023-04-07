@@ -55,6 +55,7 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
         <View>
           {selection.map(({ title, message }) => (
             <Selection
+              key={title}
               title={title}
               onPress={() => {
                 navigation.navigate("Question", { message });

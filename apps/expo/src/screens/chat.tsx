@@ -28,6 +28,7 @@ type ChatScreenProps = StackScreenProps<MainStackParamList, "Chat">;
 
 export const ChatScreen = ({ route }: ChatScreenProps) => {
   const { messages } = route.params;
+  console.log(messages);
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
   const hadLoadedRef = useRef(false);
@@ -46,38 +47,43 @@ export const ChatScreen = ({ route }: ChatScreenProps) => {
   };
 
   return (
-    <SafeAreaView className="">
-      <View className="h-full w-full p-4">
+    <SafeAreaView className="flex-1">
+      <View className="flex h-full w-full flex-col p-4">
         {/* display result */}
-        <View className="flex-1 items-center justify-start pt-24">
-          <ScrollView className="mt-2 w-full">
-            {isLoading && <Text>Loading...</Text>}
-            {data && <Text>{data?.message?.content}</Text>}
-          </ScrollView>
-        </View>
-        {/* input */}
-        <View className="flex-1 items-center justify-end">
-          <View className="flex w-full flex-row p-4">
-            <View className="w-3/4 pr-1">
-              <AutoExpandingTextInput
-                className="mb-2 rounded border-2 border-gray-500 p-2"
-                onChangeText={handlePromptChange}
-                placeholder="How can I improve the results?"
-              />
-            </View>
-            <View className="w-1/4 pl-2">
-              <TouchableOpacity
-                className="flex items-center rounded bg-[#cc66ff] p-2"
-                onPress={() => {
-                  mutate(prompt);
-                }}
-              >
-                <Text className="font-semibold">Send</Text>
-              </TouchableOpacity>
-            </View>
+        <View className="flex-1">
+          <View className="flex-1 items-center justify-start px-4">
+            <ScrollView className="mt-2 w-full">
+              {isLoading && <Text>Loading...</Text>}
+              {data && <Text>{data?.message?.content}</Text>}
+            </ScrollView>
           </View>
-          {/* signout button */}
-          <SignOut />
+        </View>
+
+        {/* input */}
+        <View className="h-14">
+          <View className="mt-5 flex-1 items-center justify-end">
+            <View className="flex w-full flex-row px-4">
+              <View className="w-3/4 pr-1">
+                <AutoExpandingTextInput
+                  className="mb-2 rounded border-2 border-gray-500 p-2"
+                  onChangeText={handlePromptChange}
+                  placeholder="How can I improve the results?"
+                />
+              </View>
+              <View className="w-1/4 pl-2">
+                <TouchableOpacity
+                  className="flex items-center rounded bg-[#cc66ff] p-2"
+                  onPress={() => {
+                    mutate(prompt);
+                  }}
+                >
+                  <Text className="font-semibold">Send</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* signout button */}
+            {/* <SignOut /> */}
+          </View>
         </View>
       </View>
     </SafeAreaView>
