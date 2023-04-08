@@ -17,19 +17,21 @@ const isAPIError = (
   return false;
 };
 
+const Message = z.object({
+  role: z.enum(["user", "assistant", "system"]),
+  content: z.string(),
+});
+
+const Completion = z.array(Message);
+
 export const openaiRouter = router({
   chatCompletion: protectedProcedure
-    .input(z.string())
+    .input(Completion)
     .mutation(async ({ ctx, input }) => {
       try {
         const completion = await ctx.openai.createChatCompletion({
           model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "user",
-              content: input,
-            },
-          ],
+          messages: input,
         });
 
         return (

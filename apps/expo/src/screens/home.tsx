@@ -7,24 +7,39 @@ import ActionSheet, {
   SheetProps,
   SheetManager,
 } from "react-native-actions-sheet";
+import {
+  useChatCompletion,
+  Message,
+} from "../providers/ChatCompletionContextProvider";
 
-const selection = [
+type Selection = {
+  title: string;
+  message: Message;
+};
+
+const selection: Selection[] = [
   {
     title: "Compose Parent Note",
-    message: { role: "system", content: "What is the purpose of this note?" },
+    message: {
+      role: "system",
+      content:
+        "You are an expert kindergarden teacher with passion for teaching and respectfully communicating with parents. You'll be creating messages or notes for parents.",
+    },
   },
   {
     title: "Polish Document",
     message: {
       role: "system",
-      content: "What is the purpose of this document?",
+      content:
+        "You are an expert in editing and proofreading documents and messages and you want to help ensure that the message is clear and concise by editing a provided message.",
     },
   },
   {
     title: "Create Lesson Plan",
     message: {
       role: "system",
-      content: "What is the purpose of this lesson plan?",
+      content:
+        "You are an expert in creating lesson plans for children and kids and also for kids and children with special needs. You will be providing a creative lesson plan for a teacher to use in their classroom.",
     },
   },
 ];
@@ -47,6 +62,8 @@ const Selection = ({
 };
 
 const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
+  const { addMessage, resetChatCompletion } = useChatCompletion();
+
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const { navigation } = payload;
   return (
@@ -58,7 +75,9 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
               key={title}
               title={title}
               onPress={() => {
-                navigation.navigate("Question", { message });
+                resetChatCompletion();
+                addMessage(message);
+                navigation.navigate("Question");
               }}
             />
           ))}
@@ -93,7 +112,7 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           <View className="flex-1 items-center justify-end pb-4">
             <TouchableOpacity
               onPress={() => {
-                SheetManager.show("1");
+                SheetManager.show("task-selection");
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >
@@ -102,7 +121,10 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
       </View>
-      <TaskSelectionSheet sheetId="1" payload={{ navigation: navigation }} />
+      <TaskSelectionSheet
+        sheetId="task-selection"
+        payload={{ navigation: navigation }}
+      />
     </SafeAreaView>
   );
 };

@@ -2,24 +2,18 @@ import { useState } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
 
-import {
-  MainStackParamList,
-  type Message,
-} from "../navigation/MainStackNavigator";
+import { MainStackParamList } from "../navigation/MainStackNavigator";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
+import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 
 type QuestionScreenProps = StackScreenProps<MainStackParamList, "Question">;
 
-export const QuestionScreen = ({ navigation, route }: QuestionScreenProps) => {
-  const [userMessage, setUserMessage] = useState<Message>({
-    role: "user",
-    content: "",
-  });
-  const { message } = route.params;
+export const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
+  const [prompt, setPrompt] = useState("");
+  const { addMessage, resetUserPrompt } = useChatCompletion();
 
   const handlePromptChange = (newPrompt: string) => {
-    const newMessage: Message = { role: "user", content: newPrompt };
-    setUserMessage(newMessage);
+    setPrompt(newPrompt);
   };
 
   return (
@@ -47,8 +41,9 @@ export const QuestionScreen = ({ navigation, route }: QuestionScreenProps) => {
             />
             <TouchableOpacity
               onPress={() => {
-                const messages = [message, userMessage];
-                navigation.navigate("Chat", { messages });
+                resetUserPrompt();
+                addMessage({ role: "user", content: prompt });
+                navigation.navigate("Chat");
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >

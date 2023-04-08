@@ -6,6 +6,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { trpc } from "../utils/trpc";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
+import {
+  useChatCompletion,
+  Message,
+} from "../providers/ChatCompletionContextProvider";
 
 const SignOut = () => {
   const { signOut } = useAuth();
@@ -21,26 +25,32 @@ const SignOut = () => {
   );
 };
 
-import type { StackScreenProps } from "@react-navigation/stack";
-import { MainStackParamList } from "../navigation/MainStackNavigator";
+export const ChatScreen = () => {
+  const { chatCompletion, setChatCompletion } = useChatCompletion();
 
-type ChatScreenProps = StackScreenProps<MainStackParamList, "Chat">;
-
-export const ChatScreen = ({ route }: ChatScreenProps) => {
-  const { messages } = route.params;
-  console.log(messages);
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
   const hadLoadedRef = useRef(false);
+  const initialScreenEnterRef = useRef(true);
 
   const { mutate, data, isLoading } = trpc.openai.chatCompletion.useMutation();
 
+  // Effect to handle the initial screen enter
   useEffect(() => {
-    if (isFocused && !hadLoadedRef.current) {
-      hadLoadedRef.current = true;
-      mutate(messages[1]?.content || "");
+    if (isFocused && initialScreenEnterRef.current) {
+      initialScreenEnterRef.current = false;
+      mutate(chatCompletion);
     }
   }, [isFocused]);
+
+  // Effect to handle updates to chatCompletion
+  useEffect(() => {
+    if (hadLoadedRef.current && isFocused) {
+      mutate(chatCompletion);
+    } else {
+      hadLoadedRef.current = true;
+    }
+  }, [chatCompletion, isFocused]);
 
   const handlePromptChange = (newPrompt: string) => {
     setPrompt(newPrompt);
@@ -74,7 +84,12 @@ export const ChatScreen = ({ route }: ChatScreenProps) => {
                 <TouchableOpacity
                   className="flex items-center rounded bg-[#cc66ff] p-2"
                   onPress={() => {
-                    mutate(prompt);
+                    const message: Message = {
+                      role: "user",
+                      content: prompt,
+                    };
+                    setChatCompletion([...chatCompletion, message]);
+                    mutate(chatCompletion);
                   }}
                 >
                   <Text className="font-semibold">Send</Text>
