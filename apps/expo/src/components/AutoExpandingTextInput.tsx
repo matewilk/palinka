@@ -8,6 +8,7 @@ export const AutoExpandingTextInput = (props: TextInputProps) => {
     <TextInput
       {...props}
       multiline={true}
+      testID="auto-expanding-text-input"
       onChange={(event) => {
         setText(event.nativeEvent.text);
       }}

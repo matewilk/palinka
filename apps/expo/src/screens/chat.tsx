@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { trpc } from "../utils/trpc";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
+import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 
 const SignOut = () => {
   const { signOut } = useAuth();
@@ -21,26 +22,43 @@ const SignOut = () => {
   );
 };
 
-import type { StackScreenProps } from "@react-navigation/stack";
-import { MainStackParamList } from "../navigation/MainStackNavigator";
+export const ChatScreen = () => {
+  const { chatCompletion, addMessage, isAssistant } = useChatCompletion();
 
-type ChatScreenProps = StackScreenProps<MainStackParamList, "Chat">;
-
-export const ChatScreen = ({ route }: ChatScreenProps) => {
-  const { messages } = route.params;
-  console.log(messages);
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
   const hadLoadedRef = useRef(false);
+  const initialScreenEnterRef = useRef(true);
 
   const { mutate, data, isLoading } = trpc.openai.chatCompletion.useMutation();
 
+  // Effect to handle the initial screen enter
   useEffect(() => {
-    if (isFocused && !hadLoadedRef.current) {
-      hadLoadedRef.current = true;
-      mutate(messages[1]?.content || "");
+    if (isFocused && initialScreenEnterRef.current) {
+      initialScreenEnterRef.current = false;
+      mutate(chatCompletion);
     }
   }, [isFocused]);
+
+  // Effect to handle updates to chatCompletion
+  useEffect(() => {
+    if (hadLoadedRef.current && isFocused) {
+      // If the user is the assistant, we don't want to trigger a mutation
+      if (!isAssistant) {
+        mutate(chatCompletion, {
+          onSuccess: (data) => {
+            // save assistant message but don't trigger a mutation (see comment above)
+            addMessage({
+              role: data?.message?.role as "assistant",
+              content: data?.message?.content as string,
+            });
+          },
+        });
+      }
+    } else {
+      hadLoadedRef.current = true;
+    }
+  }, [chatCompletion, isFocused]);
 
   const handlePromptChange = (newPrompt: string) => {
     setPrompt(newPrompt);
@@ -72,9 +90,12 @@ export const ChatScreen = ({ route }: ChatScreenProps) => {
               </View>
               <View className="w-1/4 pl-2">
                 <TouchableOpacity
-                  className="flex items-center rounded bg-[#cc66ff] p-2"
+                  className="flex items-center rounded bg-blue-500 p-2"
                   onPress={() => {
-                    mutate(prompt);
+                    addMessage({
+                      role: "user",
+                      content: prompt,
+                    });
                   }}
                 >
                   <Text className="font-semibold">Send</Text>

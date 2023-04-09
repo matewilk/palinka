@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -9,6 +9,7 @@ import { TRPCProvider } from "./utils/trpc";
 import { tokenCache } from "./utils/cache";
 import Constants from "expo-constants";
 import AppNavigator from "./navigation/AppNavigator";
+import { ChatCompletionProvider } from "./providers/ChatCompletionContextProvider";
 
 export const App = () => {
   return (
@@ -20,8 +21,10 @@ export const App = () => {
         <TRPCProvider>
           <SafeAreaProvider>
             <SheetProvider>
-              <AppNavigator />
-              <StatusBar />
+              <ChatCompletionProvider>
+                <AppNavigator />
+                <StatusBar />
+              </ChatCompletionProvider>
             </SheetProvider>
           </SafeAreaProvider>
         </TRPCProvider>

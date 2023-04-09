@@ -30,7 +30,7 @@ describe("openaiRouter", () => {
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
-      const input: Input = "Hello";
+      const input: Input = [{ role: "user", content: "Hello" }];
 
       const result = await caller.openai.chatCompletion(input);
 
@@ -46,7 +46,7 @@ describe("openaiRouter", () => {
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
-      const input: Input = "Hello";
+      const input: Input = [{ role: "user", content: "Hello" }];
 
       await expect(caller.openai.chatCompletion(input)).rejects.toThrowError(
         "An error occurred while processing the request: test",
@@ -64,7 +64,7 @@ describe("openaiRouter", () => {
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
-      const input: Input = "Hello";
+      const input: Input = [{ role: "user", content: "Hello" }];
 
       await expect(caller.openai.chatCompletion(input)).rejects.toThrowError(
         "An error occurred while processing the OpenAI API request: test message",
