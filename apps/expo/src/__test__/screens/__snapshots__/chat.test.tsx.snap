@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatScreen should render correctly 1`] = `
+<RNCSafeAreaView
+  edges={
+    [
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ]
+  }
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "display": "flex",
+        },
+        {
+          "height": "100%",
+        },
+        {
+          "width": "100%",
+        },
+        {
+          "flexDirection": "column",
+        },
+        {
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "flex-start",
+            },
+            {
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            },
+          ]
+        }
+      >
+        <RCTScrollView
+          style={
+            [
+              {
+                "marginTop": 8,
+              },
+              {
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <View>
+            <Text>
+              Hello World
+            </Text>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "height": 56,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "marginTop": 20,
+            },
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "flex-end",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "display": "flex",
+              },
+              {
+                "width": "100%",
+              },
+              {
+                "flexDirection": "row",
+              },
+              {
+                "paddingLeft": 16,
+                "paddingRight": 16,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "width": "75%",
+                },
+                {
+                  "paddingRight": 4,
+                },
+              ]
+            }
+          >
+            <TextInput
+              multiline={true}
+              onChange={[Function]}
+              onChangeText={[Function]}
+              onContentSizeChange={[Function]}
+              placeholder="How can I improve the results?"
+              style={
+                [
+                  [
+                    {
+                      "marginBottom": 8,
+                    },
+                    {
+                      "borderBottomLeftRadius": 4,
+                      "borderBottomRightRadius": 4,
+                      "borderTopLeftRadius": 4,
+                      "borderTopRightRadius": 4,
+                    },
+                    {
+                      "borderBottomWidth": 2,
+                      "borderLeftWidth": 2,
+                      "borderRightWidth": 2,
+                      "borderTopWidth": 2,
+                    },
+                    {
+                      "borderBottomColor": "#6b7280",
+                      "borderLeftColor": "#6b7280",
+                      "borderRightColor": "#6b7280",
+                      "borderTopColor": "#6b7280",
+                    },
+                    {
+                      "paddingBottom": 8,
+                      "paddingLeft": 8,
+                      "paddingRight": 8,
+                      "paddingTop": 8,
+                    },
+                  ],
+                  {
+                    "height": 5,
+                  },
+                ]
+              }
+              testID="auto-expanding-text-input"
+              value=""
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "width": "25%",
+                },
+                {
+                  "paddingLeft": 8,
+                },
+              ]
+            }
+          >
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "#3b82f6",
+                  "borderBottomLeftRadius": 4,
+                  "borderBottomRightRadius": 4,
+                  "borderTopLeftRadius": 4,
+                  "borderTopRightRadius": 4,
+                  "display": "flex",
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                  "paddingTop": 8,
+                }
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontWeight": "600",
+                    },
+                  ]
+                }
+              >
+                Send
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

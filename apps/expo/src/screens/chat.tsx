@@ -25,8 +25,6 @@ const SignOut = () => {
 export const ChatScreen = () => {
   const { chatCompletion, addMessage, isAssistant } = useChatCompletion();
 
-  console.log("chatCompletion", chatCompletion);
-
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
   const hadLoadedRef = useRef(false);
