@@ -6,10 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { trpc } from "../utils/trpc";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
-import {
-  useChatCompletion,
-  Message,
-} from "../providers/ChatCompletionContextProvider";
+import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 
 const SignOut = () => {
   const { signOut } = useAuth();
@@ -26,7 +23,9 @@ const SignOut = () => {
 };
 
 export const ChatScreen = () => {
-  const { chatCompletion, setChatCompletion } = useChatCompletion();
+  const { chatCompletion, addMessage, isAssistant } = useChatCompletion();
+
+  console.log("chatCompletion", chatCompletion);
 
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
@@ -46,7 +45,18 @@ export const ChatScreen = () => {
   // Effect to handle updates to chatCompletion
   useEffect(() => {
     if (hadLoadedRef.current && isFocused) {
-      mutate(chatCompletion);
+      // If the user is the assistant, we don't want to trigger a mutation
+      if (!isAssistant) {
+        mutate(chatCompletion, {
+          onSuccess: (data) => {
+            // save assistant message but don't trigger a mutation (see comment above)
+            addMessage({
+              role: data?.message?.role as "assistant",
+              content: data?.message?.content as string,
+            });
+          },
+        });
+      }
     } else {
       hadLoadedRef.current = true;
     }
@@ -82,14 +92,12 @@ export const ChatScreen = () => {
               </View>
               <View className="w-1/4 pl-2">
                 <TouchableOpacity
-                  className="flex items-center rounded bg-[#cc66ff] p-2"
+                  className="flex items-center rounded bg-blue-500 p-2"
                   onPress={() => {
-                    const message: Message = {
+                    addMessage({
                       role: "user",
                       content: prompt,
-                    };
-                    setChatCompletion([...chatCompletion, message]);
-                    mutate(chatCompletion);
+                    });
                   }}
                 >
                   <Text className="font-semibold">Send</Text>

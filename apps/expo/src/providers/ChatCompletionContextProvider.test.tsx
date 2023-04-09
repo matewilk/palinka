@@ -127,4 +127,28 @@ describe("useChatCompletion", () => {
       { role: "system", content: "Hello" },
     ]);
   });
+
+  test("should return true if assistant is last message", () => {
+    const { result } = renderHook(() => useChatCompletion(), {
+      wrapper: ChatCompletionProvider,
+    });
+    expect(result.current.chatCompletion).toEqual([]);
+
+    act(() => {
+      result.current.addMessage({ role: "system", content: "Hello" });
+    });
+    expect(result.current.chatCompletion).toEqual([
+      { role: "system", content: "Hello" },
+    ]);
+    expect(result.current.isAssistant).toEqual(false);
+
+    act(() => {
+      result.current.addMessage({
+        role: "assistant",
+        content: "Hello from assistant",
+      });
+    });
+
+    expect(result.current.isAssistant).toEqual(true);
+  });
 });

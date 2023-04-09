@@ -18,6 +18,7 @@ export type ChatCompletionContextType = {
   addMessage: ({ role, content }: Message) => void;
   resetChatCompletion: () => void;
   resetUserPrompt: () => void;
+  isAssistant: boolean;
 };
 
 export const ChatCompletionContext = createContext<
@@ -41,9 +42,12 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
 
   const resetUserPrompt = () => {
     setChatCompletion((prevChatCompletion) =>
-      prevChatCompletion.filter((message) => message.role !== "user"),
+      prevChatCompletion.filter((message) => message.role === "system"),
     );
   };
+
+  const isAssistant =
+    chatCompletion[chatCompletion.length - 1]?.role === "assistant";
 
   return (
     <ChatCompletionContext.Provider
@@ -53,6 +57,7 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
         addMessage,
         resetChatCompletion,
         resetUserPrompt,
+        isAssistant,
       }}
       {...props}
     />
