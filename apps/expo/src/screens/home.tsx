@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
-
 import ActionSheet, {
   ActionSheetRef,
   SheetProps,
   SheetManager,
 } from "react-native-actions-sheet";
+
+import { tokens, translate } from "../i18n";
 import {
   useChatCompletion,
   Message,
@@ -102,7 +103,9 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           </View>
 
           {/* Text */}
-          <Text className="mt-4 p-4 pb-0 text-lg">Hey, I'm Palinka!</Text>
+          <Text className="mt-4 p-4 pb-0 text-lg">
+            {translate(tokens.screens.home.helloWithName, { name: "Palinka" })}
+          </Text>
           <Text className="mt-4 px-4 text-lg">
             Let me help you with communication, documents, and learning. Let's
             make things easier together!
@@ -116,7 +119,9 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >
-              <Text className="text-white">Please Ask</Text>
+              <Text className="text-white">
+                {translate(tokens.screens.home.selectTaskBtn)}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
