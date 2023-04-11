@@ -23,6 +23,10 @@ const en = {
     "Just provide me with some key details or a rough draft, and I'll make sure your message or plan is clear, concise, and respectful.",
   promptInputPlaceholder: "Provide a rough draft or key details here...",
   promptSubmitBtn: "Let's go!",
+
+  // Chat Screen
+  chatInputPlaceholder: "How can I improve the results?",
+  chatSubmitBtn: "Send",
 };
 
 export default en;

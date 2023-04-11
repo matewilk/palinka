@@ -23,6 +23,10 @@ const pl = {
     "Wystarczy, że podasz mi kilka kluczowych szczegółów lub szkic, a ja upewnię się, że Twoja wiadomość lub plan jest jasny, zwięzły i pełen szacunku.",
   promptInputPlaceholder: "Podaj szkic lub kluczowe szczegóły...",
   promptSubmitBtn: "Zaczynamy!",
+
+  // Chat Screen
+  chatInputPlaceholder: "Czy wprowadzić poprawki?",
+  chatSubmitBtn: "Wyślij",
 };
 
 export default pl;

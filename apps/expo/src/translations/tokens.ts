@@ -12,6 +12,11 @@ export enum PromptScreen {
   submitBtn = "promptSubmitBtn",
 }
 
+export enum ChatScreen {
+  inputPlaceholder = "chatInputPlaceholder",
+  submitBtn = "chatSubmitBtn",
+}
+
 export enum ComposeParentNote {
   title = "composeParentNoteTitle",
   content = "composeParentNoteContent",
@@ -37,6 +42,7 @@ export const tokens = {
   screens: {
     home: HomeScreen,
     prompt: PromptScreen,
+    chat: ChatScreen,
   },
   selection: {
     tasks: taskSelection,
