@@ -5,10 +5,11 @@ import type { StackScreenProps } from "@react-navigation/stack";
 import { MainStackParamList } from "../navigation/MainStackNavigator";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
+import { translate, tokens } from "../i18n";
 
-type QuestionScreenProps = StackScreenProps<MainStackParamList, "Question">;
+type PromptScreenProps = StackScreenProps<MainStackParamList, "Prompt">;
 
-export const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
+export const PromptScreen = ({ navigation }: PromptScreenProps) => {
   const [prompt, setPrompt] = useState("");
   const { addMessage, resetUserPrompt } = useChatCompletion();
 
@@ -26,10 +27,11 @@ export const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
             </View>
 
             {/* Text */}
-            <Text className="mt-4 p-4 pb-0 text-lg">Great choice!</Text>
+            <Text className="mt-4 p-4 pb-0 text-lg">
+              {translate(tokens.screens.prompt.header)}
+            </Text>
             <Text className="mt-4 px-4 text-lg">
-              Just provide me with some key details or a rough draft, and I'll
-              make sure your message is clear, concise, and respectful.
+              {translate(tokens.screens.prompt.subheader)}
             </Text>
           </View>
 
@@ -37,7 +39,7 @@ export const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
             <AutoExpandingTextInput
               className="mb-2 w-full rounded border-2 border-gray-500 p-2"
               onChangeText={handlePromptChange}
-              placeholder="Provide a rough draft or key details here."
+              placeholder={translate(tokens.screens.prompt.inputPlaceholder)}
             />
             <TouchableOpacity
               onPress={() => {
@@ -47,7 +49,9 @@ export const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >
-              <Text className="text-white">Let's Go</Text>
+              <Text className="text-white">
+                {translate(tokens.screens.prompt.submitBtn)}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

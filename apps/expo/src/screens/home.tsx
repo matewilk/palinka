@@ -68,7 +68,7 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
               onPress={() => {
                 resetChatCompletion();
                 addMessage(message);
-                navigation.navigate("Question");
+                navigation.navigate("Prompt");
               }}
             />
           ))}

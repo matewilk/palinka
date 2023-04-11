@@ -103,7 +103,7 @@ export const ChatScreen = () => {
               </View>
             </View>
             {/* signout button */}
-            {/* <SignOut /> */}
+            <SignOut />
           </View>
         </View>
       </View>

@@ -5,6 +5,13 @@ export enum HomeScreen {
   selectTaskBtn = "selectTaskBtn",
 }
 
+export enum PromptScreen {
+  header = "promptHeader",
+  subheader = "promptContent",
+  inputPlaceholder = "promptInputPlaceholder",
+  submitBtn = "promptSubmitBtn",
+}
+
 export enum ComposeParentNote {
   title = "composeParentNoteTitle",
   content = "composeParentNoteContent",
@@ -29,6 +36,7 @@ export const taskSelection = {
 export const tokens = {
   screens: {
     home: HomeScreen,
+    prompt: PromptScreen,
   },
   selection: {
     tasks: taskSelection,
