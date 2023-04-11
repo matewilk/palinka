@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { trpc } from "../utils/trpc";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
+import { tokens, translate } from "../i18n";
 
 const SignOut = () => {
   const { signOut } = useAuth();
@@ -85,7 +86,7 @@ export const ChatScreen = () => {
                 <AutoExpandingTextInput
                   className="mb-2 rounded border-2 border-gray-500 p-2"
                   onChangeText={handlePromptChange}
-                  placeholder="How can I improve the results?"
+                  placeholder={translate(tokens.screens.chat.inputPlaceholder)}
                 />
               </View>
               <View className="w-1/4 pl-2">
@@ -98,12 +99,14 @@ export const ChatScreen = () => {
                     });
                   }}
                 >
-                  <Text className="font-semibold">Send</Text>
+                  <Text className="font-semibold text-white">
+                    {translate(tokens.screens.chat.submitBtn)}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
             {/* signout button */}
-            {/* <SignOut /> */}
+            <SignOut />
           </View>
         </View>
       </View>

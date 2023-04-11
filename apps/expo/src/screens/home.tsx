@@ -1,50 +1,41 @@
 import { useRef } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
-
 import ActionSheet, {
   ActionSheetRef,
   SheetProps,
   SheetManager,
 } from "react-native-actions-sheet";
-import {
-  useChatCompletion,
-  Message,
-} from "../providers/ChatCompletionContextProvider";
 
-type Selection = {
-  title: string;
-  message: Message;
-};
+import { tokens, translate } from "../i18n";
+import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
+import { Selection } from "../types/app";
 
 const selection: Selection[] = [
   {
-    title: "Compose Parent Note",
+    title: translate(tokens.selection.tasks.composeParentNote.title),
     message: {
       role: "system",
-      content:
-        "You are an expert kindergarden teacher with passion for teaching and respectfully communicating with parents. You'll be creating messages or notes for parents.",
+      content: translate(tokens.selection.tasks.composeParentNote.content),
     },
   },
   {
-    title: "Polish Document",
+    title: translate(tokens.selection.tasks.polishDocument.title),
     message: {
       role: "system",
-      content:
-        "You are an expert in editing and proofreading documents and messages and you want to help ensure that the message is clear and concise by editing a provided message.",
+      content: translate(tokens.selection.tasks.polishDocument.content),
     },
   },
   {
-    title: "Create Lesson Plan",
+    title: translate(tokens.selection.tasks.createLessonPlan.title),
     message: {
       role: "system",
-      content:
-        "You are an expert in creating lesson plans for children and kids and also for kids and children with special needs. You will be providing a creative lesson plan for a teacher to use in their classroom.",
+      content: translate(tokens.selection.tasks.createLessonPlan.content),
     },
   },
 ];
 
-const Selection = ({
+const SelectionButton = ({
   title,
   onPress,
 }: {
@@ -71,13 +62,13 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
       <View className="p-4">
         <View>
           {selection.map(({ title, message }) => (
-            <Selection
+            <SelectionButton
               key={title}
               title={title}
               onPress={() => {
                 resetChatCompletion();
                 addMessage(message);
-                navigation.navigate("Question");
+                navigation.navigate("Prompt");
               }}
             />
           ))}
@@ -102,10 +93,11 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           </View>
 
           {/* Text */}
-          <Text className="mt-4 p-4 pb-0 text-lg">Hey, I'm Palinka!</Text>
+          <Text className="mt-4 p-4 pb-0 text-lg">
+            {translate(tokens.screens.home.helloWithName, { name: "Palinka" })}
+          </Text>
           <Text className="mt-4 px-4 text-lg">
-            Let me help you with communication, documents, and learning. Let's
-            make things easier together!
+            {translate(tokens.screens.home.helloContent)}
           </Text>
 
           {/* Rounded button */}
@@ -116,7 +108,9 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
               }}
               className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
             >
-              <Text className="text-white">Please Ask</Text>
+              <Text className="text-white">
+                {translate(tokens.screens.home.selectTaskBtn)}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
