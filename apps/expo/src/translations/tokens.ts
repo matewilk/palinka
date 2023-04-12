@@ -15,6 +15,7 @@ export enum PromptScreen {
 export enum ChatScreen {
   inputPlaceholder = "chatInputPlaceholder",
   submitBtn = "chatSubmitBtn",
+  assistantWorking = "assistantWorking",
 }
 
 export enum ComposeParentNote {
