@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Button, View, Text } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useAuth } from "@clerk/clerk-expo";
@@ -14,7 +14,6 @@ import {
 import { ActivityIndicator } from "react-native";
 
 import { trpc } from "../utils/trpc";
-import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 import { tokens, translate } from "../i18n";
 
@@ -38,48 +37,30 @@ export const ChatScreen = () => {
 
   const isFocused = useIsFocused();
   const [prompt, setPrompt] = useState("");
-  const hadLoadedRef = useRef(false);
-  const initialScreenEnterRef = useRef(true);
 
   const { mutate, data, isLoading } = trpc.openai.chatCompletion.useMutation();
 
-  // Effect to handle the initial screen enter
+  // When first screen enters, mutete to send a request to OpenAI
   useEffect(() => {
-    if (isFocused && initialScreenEnterRef.current) {
-      initialScreenEnterRef.current = false;
-      if (chatCompletion) {
-        mutate(chatCompletion);
-      }
+    if (isFocused && !isAssistant) {
+      mutate(chatCompletion, {
+        onSuccess: (data) =>
+          addMessage({
+            role: "assistant",
+            content: data.message?.content as string,
+          }),
+      });
     }
-  }, [isFocused]);
+  }, [isFocused, data]);
 
-  // Effect to handle updates to chatCompletion
-  useEffect(() => {
-    if (hadLoadedRef.current && isFocused) {
-      // If the user is the assistant, we don't want to trigger a mutation
-      if (!isAssistant) {
-        mutate(chatCompletion, {
-          onSuccess: (data) => {
-            // save assistant message but don't trigger a mutation (see comment above)
-            addMessage({
-              role: data?.message?.role as "assistant",
-              content: data?.message?.content as string,
-            });
-          },
-        });
-      }
-    } else {
-      hadLoadedRef.current = true;
-    }
-  }, [chatCompletion, isFocused, data]);
-
+  // When the user sends a message, mutate to send a request to OpenAI
   const handleSend = (messages: IMessage[] = []) => {
     messages.forEach((message) => {
       addMessage({
         role: "user",
         content: message.text,
       });
-      setPrompt(message.text);
+      mutate(chatCompletion);
     });
   };
 
@@ -153,6 +134,7 @@ export const ChatScreen = () => {
         bottomOffset={20}
         text={prompt}
         onInputTextChanged={(text) => setPrompt(text)}
+        showUserAvatar={true}
       />
       <SignOut />
     </SafeAreaView>
