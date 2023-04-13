@@ -93,6 +93,7 @@ export const ChatScreen = () => {
       <Send {...props}>
         <View>
           <Button
+            testID="gf-send-btn"
             title={translate(tokens.screens.chat.submitBtn)}
             onPress={() => {
               props.onSend?.({ text: prompt.trim() }, true);

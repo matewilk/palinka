@@ -4,9 +4,11 @@ import {
   ChatCompletionProvider,
 } from "./ChatCompletionContextProvider";
 
+const date = new Date(2021, 1, 1);
 describe("useChatCompletion", () => {
   beforeEach(() => {
     jest.resetModules();
+    jest.useFakeTimers().setSystemTime(date.getTime());
   });
 
   afterEach(() => {
@@ -82,7 +84,7 @@ describe("useChatCompletion", () => {
       result.current.addMessage({ role: "system", content: "Hello" });
     });
     expect(result.current.chatCompletion).toEqual([
-      { role: "system", content: "Hello" },
+      { role: "system", content: "Hello", timestamp: date },
     ]);
   });
 
@@ -96,7 +98,7 @@ describe("useChatCompletion", () => {
       result.current.addMessage({ role: "system", content: "Hello" });
     });
     expect(result.current.chatCompletion).toEqual([
-      { role: "system", content: "Hello" },
+      { role: "system", content: "Hello", timestamp: date },
     ]);
 
     act(() => {
@@ -116,15 +118,15 @@ describe("useChatCompletion", () => {
       result.current.addMessage({ role: "user", content: "Hi" });
     });
     expect(result.current.chatCompletion).toEqual([
-      { role: "system", content: "Hello" },
-      { role: "user", content: "Hi" },
+      { role: "system", content: "Hello", timestamp: date },
+      { role: "user", content: "Hi", timestamp: date },
     ]);
 
     act(() => {
       result.current.resetUserPrompt();
     });
     expect(result.current.chatCompletion).toEqual([
-      { role: "system", content: "Hello" },
+      { role: "system", content: "Hello", timestamp: date },
     ]);
   });
 
@@ -138,7 +140,7 @@ describe("useChatCompletion", () => {
       result.current.addMessage({ role: "system", content: "Hello" });
     });
     expect(result.current.chatCompletion).toEqual([
-      { role: "system", content: "Hello" },
+      { role: "system", content: "Hello", timestamp: date },
     ]);
     expect(result.current.isAssistant).toEqual(false);
 
