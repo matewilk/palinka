@@ -1,8 +1,9 @@
 import React, { ReactNode } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, screen } from "@testing-library/react-native";
 import { ChatCompletionProvider } from "../../providers/ChatCompletionContextProvider";
 import { ChatScreen } from "../../screens/chat";
+import { TEST_ID } from "react-native-gifted-chat";
 
 jest.mock("@clerk/clerk-expo", () => ({
   useAuth: jest.fn().mockReturnValue({ isSignedIn: true }),
@@ -40,12 +41,28 @@ describe("ChatScreen", () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it("should render message content", () => {
-    const { getByTestId, getByText } = render(<ChatScreen />, { wrapper });
+  it.only("should render message content", async () => {
+    const { getByTestId, findByText } = render(<ChatScreen />, { wrapper });
 
-    const input = getByTestId("auto-expanding-text-input");
-    fireEvent.changeText(input, "Hello World");
+    const WIDTH = 200; // or any number
+    const HEIGHT = 2000; // or any number
 
-    expect(getByText("Hello World")).toBeDefined();
+    const loadingWrapper = getByTestId(TEST_ID.LOADING_WRAPPER);
+    fireEvent(loadingWrapper, "layout", {
+      nativeEvent: {
+        layout: {
+          width: WIDTH,
+          height: HEIGHT,
+        },
+      },
+    });
+
+    const input = getByTestId("Type a message...");
+    fireEvent.changeText(input, "Hello World!!");
+
+    const sendButton = getByTestId("gf-send-btn");
+    fireEvent.press(sendButton);
+
+    expect(await findByText("Hello World!!")).toBeDefined();
   });
 });
