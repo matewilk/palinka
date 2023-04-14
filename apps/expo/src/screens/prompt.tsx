@@ -37,7 +37,7 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
 
           <View className="w-full items-center justify-end pb-4">
             <AutoExpandingTextInput
-              className="mb-2 w-full rounded border-2 border-gray-500 p-2"
+              className="mb-2 w-full rounded border border-gray-500 p-2"
               onChangeText={handlePromptChange}
               placeholder={translate(tokens.screens.prompt.inputPlaceholder)}
             />
@@ -47,7 +47,7 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
                 addMessage({ role: "user", content: prompt });
                 navigation.navigate("Chat");
               }}
-              className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
+              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-blue-500"
             >
               <Text className="text-white">
                 {translate(tokens.screens.prompt.submitBtn)}

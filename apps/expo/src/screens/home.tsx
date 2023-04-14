@@ -101,12 +101,12 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           </Text>
 
           {/* Rounded button */}
-          <View className="flex-1 items-center justify-end pb-4">
+          <View className="w-full flex-1 items-center justify-end pb-4">
             <TouchableOpacity
               onPress={() => {
                 SheetManager.show("task-selection");
               }}
-              className="mt-6 h-10 w-32 items-center justify-center rounded-lg bg-blue-500"
+              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-blue-500"
             >
               <Text className="text-white">
                 {translate(tokens.screens.home.selectTaskBtn)}

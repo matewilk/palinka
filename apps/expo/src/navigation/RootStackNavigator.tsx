@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AuthStackNavigator from "./AuthStackNavigator";
-import MainStackNavigator from "./MainStackNavigator";
+import DrawerNavigator from "./DrawerNavigator";
 import { useAuth } from "@clerk/clerk-expo";
 
 type RootStackParamList = {
@@ -16,7 +16,7 @@ function RootStackNavigator() {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       {isSignedIn ? (
-        <RootStack.Screen name="Main" component={MainStackNavigator} />
+        <RootStack.Screen name="Main" component={DrawerNavigator} />
       ) : (
         <RootStack.Screen name="Auth" component={AuthStackNavigator} />
       )}
