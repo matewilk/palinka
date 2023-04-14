@@ -1,11 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { DrawerActions } from "@react-navigation/native";
-import { TouchableOpacity, Text } from "react-native";
 
 import { HomeScreen } from "../screens/home";
 import { PromptScreen } from "../screens/prompt";
 import { ChatScreen } from "../screens/chat";
+import { HamburgerMenu } from "./HamburgerMenu";
 
 export type MainStackParamList = {
   Home: undefined;
@@ -21,14 +20,7 @@ function MainStackNavigator() {
       initialRouteName="Home"
       screenOptions={({ navigation }) => ({
         headerShown: true,
-        headerRight: () => (
-          <TouchableOpacity
-            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            className="pr-4 pt-4"
-          >
-            <Text className="text-5xl">≡</Text>
-          </TouchableOpacity>
-        ),
+        headerRight: () => <HamburgerMenu navigation={navigation} />,
       })}
     >
       <MainStack.Screen name="Home" component={HomeScreen} />
