@@ -27,6 +27,7 @@ const pl = {
   // Chat Screen
   chatInputPlaceholder: "Czy wprowadzić poprawki?",
   chatSubmitBtn: "Wyślij",
+  assistantWorking: "Pracuję nad Twoim zadaniem...",
 };
 
 export default pl;

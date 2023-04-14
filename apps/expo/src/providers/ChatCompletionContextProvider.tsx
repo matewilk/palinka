@@ -7,9 +7,12 @@ import {
   SetStateAction,
 } from "react";
 
+import { IMessage } from "react-native-gifted-chat";
+
 export type Message = {
   role: "system" | "user" | "assistant";
   content: string;
+  timestamp?: Date;
 };
 
 export type ChatCompletionContextType = {
@@ -19,6 +22,7 @@ export type ChatCompletionContextType = {
   resetChatCompletion: () => void;
   resetUserPrompt: () => void;
   isAssistant: boolean;
+  getGiftedChatMessages: () => IMessage[];
 };
 
 export const ChatCompletionContext = createContext<
@@ -28,8 +32,8 @@ export const ChatCompletionContext = createContext<
 export const ChatCompletionProvider = (props: PropsWithChildren) => {
   const [chatCompletion, setChatCompletion] = useState<Message[]>([]);
 
-  const addMessage = ({ role, content }: Message) => {
-    const newMessage: Message = { role, content };
+  const addMessage = ({ role, content }: Omit<Message, "timestamp">) => {
+    const newMessage: Message = { role, content, timestamp: new Date() };
     setChatCompletion((prevChatCompletion) => [
       ...prevChatCompletion,
       newMessage,
@@ -49,6 +53,27 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
   const isAssistant =
     chatCompletion[chatCompletion.length - 1]?.role === "assistant";
 
+  const getGiftedChatMessages = (): IMessage[] => {
+    return chatCompletion
+      .filter((message) => message.role !== "system")
+      .map((message) => {
+        return {
+          _id: Math.random().toString(),
+          text: message.content,
+          createdAt: message.timestamp || new Date(),
+          user: {
+            _id: message.role === "user" ? 1 : 2,
+            name: message.role === "user" ? "You" : "Assistant",
+            avatar:
+              message.role === "user"
+                ? "https://placeimg.com/140/140/any"
+                : "https://placeimg.com/140/140/any",
+          },
+        };
+      })
+      .reverse();
+  };
+
   return (
     <ChatCompletionContext.Provider
       value={{
@@ -58,6 +83,7 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
         resetChatCompletion,
         resetUserPrompt,
         isAssistant,
+        getGiftedChatMessages,
       }}
       {...props}
     />
