@@ -1,7 +1,9 @@
 import React from "react";
 import { useOAuth } from "@clerk/clerk-expo";
-import { Button, View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
+
+import { translate, tokens } from "../i18n";
 
 const SignInWithOAuth = () => {
   useWarmUpBrowser();
@@ -32,11 +34,15 @@ const SignInWithOAuth = () => {
   };
 
   return (
-    <View className="rounded-lg border-2 border-gray-500 p-4">
-      <Button
-        title="Sign in with Google"
+    <View>
+      <TouchableOpacity
+        className="rounded-full bg-black p-5"
         onPress={handleSignInWithGooglePress}
-      />
+      >
+        <Text className="text-xl text-white">
+          {translate(tokens.screens.login.loginWithGoogleBtn)}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -1,4 +1,15 @@
 const en = {
+  // Welcome Screen
+  welcomeHeader: "Hello, Let me become your daily assistant!",
+  welcomeSubheader:
+    "Thank you for choosing me, I would like to save your valuable time!",
+  welcomeNextBtn: "Let's find out more",
+
+  // Intro Screen
+  introHeader: "I'm Palinka, your personal assistant!",
+  introSubheader: "I'll help you with communication, documents, and learning.",
+  introNextBtn: "Let's get started",
+
   // Home Screen
   greeting: "Hey",
   greetingWithName: "Hello, I'm %{name}!",
@@ -6,7 +17,12 @@ const en = {
     "Let me help you with communication, documents, and learning. Let's make things easier together!",
   selectTaskBtn: "Select task",
 
-  // Taks Selection
+  // Login Screen
+  loginHeader: "Last step!",
+  loginSubheader: "Please login to continue",
+  loginWithGoogleBtn: "Login with Google",
+
+  // Task Selection
   composeParentNoteTitle: "Compose Parent Note",
   composeParentNoteContent:
     "You are an expert kindergarden teacher with passion for teaching and respectfully communicating with parents. You'll be creating messages or notes for parents.",

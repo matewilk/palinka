@@ -1,10 +1,26 @@
 const pl = {
+  // Welcome Screen
+  welcomeHeader: "Cześć, pozwól, że stanię się Twoim codziennym asystentem!",
+  welcomeSubheader:
+    "Dziękuję, że mnie wybrałaś, chętnie zaoszczędzę Twój cenny czas! ",
+  welcomeNextBtn: "Dowiedz się więcej",
+
+  // Intro Screen
+  introHeader: "Jestem Palinka, Twój osobisty asystent!",
+  introSubheader: "Pomogę Ci w komunikacji, dokumentach i nauce.",
+  introNextBtn: "Zaczynajmy!",
+
   // Home Screen
   greeting: "Cześć",
   greetingWithName: "Cześć, jestem %{name}!",
   greetingContent:
     "Hej, tu Palinka! Chętnie pomogę Ci w komunikacji, dokumentach i nauce. Razem sprawimy, że wszystko będzie prostsze!",
   selectTaskBtn: "Wybierz zadanie",
+
+  // Login Screen
+  loginHeader: "Ostatni krok!",
+  loginSubheader: "Zaloguj się, aby kontynuować",
+  loginWithGoogleBtn: "Zaloguj się z Google",
 
   // Task Selection
   composeParentNoteTitle: "Napisz notatkę dla rodzica",

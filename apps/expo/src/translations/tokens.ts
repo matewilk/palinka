@@ -1,3 +1,21 @@
+export enum WelcomeScreen {
+  header = "welcomeHeader",
+  subheader = "welcomeSubheader",
+  nextBtn = "welcomeNextBtn",
+}
+
+export enum IntroScreen {
+  header = "introHeader",
+  subheader = "introSubheader",
+  nextBtn = "introNextBtn",
+}
+
+export enum LoginScreen {
+  header = "loginHeader",
+  subheader = "loginSubheader",
+  loginWithGoogleBtn = "loginWithGoogleBtn",
+}
+
 export enum HomeScreen {
   hello = "greeting",
   helloWithName = "greetingWithName",
@@ -41,6 +59,9 @@ export const taskSelection = {
 
 export const tokens = {
   screens: {
+    welcome: WelcomeScreen,
+    intro: IntroScreen,
+    login: LoginScreen,
     home: HomeScreen,
     prompt: PromptScreen,
     chat: ChatScreen,
