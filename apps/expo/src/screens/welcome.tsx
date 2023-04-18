@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { View, SafeAreaView, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { AuthStackParamList } from "../navigation/AuthStackNavigator";
@@ -12,6 +18,12 @@ type WelcomeScreenProps = {
 export const WelcomeScreen: FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
     <SafeAreaView className="flex-1">
+      <View className="flex-1 items-center justify-end">
+        <Image
+          className="h-64 w-64"
+          source={{ uri: "https://via.placeholder.com/250" }}
+        />
+      </View>
       <View className="flex-1 items-center justify-center gap-10 p-5">
         <Text className="text-2xl font-extrabold">
           {translate(tokens.screens.welcome.header)}
