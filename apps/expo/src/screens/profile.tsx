@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { tokens, translate } from "../i18n";
 
 export const ProfileScreen = () => {
   return (
@@ -19,7 +20,9 @@ export const ProfileScreen = () => {
 
           <View className="w-full flex-1 items-center justify-center space-y-4 pt-4">
             <View className="w-full items-center space-y-1">
-              <Text className="text-center">First Name</Text>
+              <Text className="text-center">
+                {translate(tokens.screens.profile.firstName)}
+              </Text>
               <TextInput
                 className="w-full rounded border border-gray-300 py-2 px-3"
                 placeholder="First Name"
@@ -27,7 +30,9 @@ export const ProfileScreen = () => {
             </View>
 
             <View className="w-full items-center space-y-1">
-              <Text className="text-center">Last Name</Text>
+              <Text className="text-center">
+                {translate(tokens.screens.profile.lastName)}
+              </Text>
               <TextInput
                 className="w-full rounded border border-gray-300 py-2 px-3"
                 placeholder="Last Name"
@@ -35,7 +40,9 @@ export const ProfileScreen = () => {
             </View>
 
             <View className="w-full items-center space-y-1">
-              <Text className="text-center">Email Address</Text>
+              <Text className="text-center">
+                {translate(tokens.screens.profile.email)}
+              </Text>
               <TextInput
                 className="w-full rounded border border-gray-300 py-2 px-3"
                 placeholder="Email Address"
@@ -46,7 +53,7 @@ export const ProfileScreen = () => {
           <View className="w-full flex-1 items-center justify-end pb-4">
             <TouchableOpacity className="w-full items-center rounded bg-red-400 py-3">
               <Text className="text-center font-bold text-white">
-                Delete Account
+                {translate(tokens.screens.profile.deleteAccountBtn)}
               </Text>
             </TouchableOpacity>
           </View>

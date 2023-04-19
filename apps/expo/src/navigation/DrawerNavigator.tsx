@@ -5,7 +5,9 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import { useAuth } from "@clerk/clerk-expo";
 
+import { translate, tokens } from "../i18n";
 import MainStackNavigator from "./MainStackNavigator";
 import ProfileStackNavigator from "./ProfileStackNavigator";
 
@@ -17,12 +19,12 @@ type DrawerParamList = {
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
 function CustomDrawerContent(props: any) {
+  const { signOut } = useAuth();
   const { progress, ...rest } = props;
 
   // Function to handle logout logic
   const handleLogout = () => {
-    console.log("Logout");
-    // Your logout logic here
+    signOut();
   };
 
   return (
@@ -30,8 +32,10 @@ function CustomDrawerContent(props: any) {
       <View>
         <DrawerItemList {...rest} />
       </View>
-      <TouchableOpacity onPress={handleLogout} className="p-4">
-        <Text>Logout</Text>
+      <TouchableOpacity onPress={handleLogout}>
+        <Text className="m-3 rounded-sm bg-red-100 px-2 py-4 font-medium">
+          {translate(tokens.drawer.logout)}
+        </Text>
       </TouchableOpacity>
     </DrawerContentScrollView>
   );
@@ -43,8 +47,14 @@ function AppDrawerNavigator() {
       screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={MainStackNavigator} />
-      <Drawer.Screen name="Profile" component={ProfileStackNavigator} />
+      <Drawer.Screen
+        name={translate(tokens.drawer.home) as keyof DrawerParamList}
+        component={MainStackNavigator}
+      />
+      <Drawer.Screen
+        name={translate(tokens.drawer.profile) as keyof DrawerParamList}
+        component={ProfileStackNavigator}
+      />
     </Drawer.Navigator>
   );
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, View, Text } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { useAuth } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   GiftedChat,
@@ -16,20 +15,6 @@ import { ActivityIndicator } from "react-native";
 import { trpc } from "../utils/trpc";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 import { tokens, translate } from "../i18n";
-
-const SignOut = () => {
-  const { signOut } = useAuth();
-  return (
-    <View className="w-full rounded-lg p-4">
-      <Button
-        title="Sign Out"
-        onPress={() => {
-          signOut();
-        }}
-      />
-    </View>
-  );
-};
 
 export const ChatScreen = () => {
   const { chatCompletion, addMessage, isAssistant, getGiftedChatMessages } =
@@ -137,7 +122,6 @@ export const ChatScreen = () => {
         onInputTextChanged={(text) => setPrompt(text)}
         showUserAvatar={true}
       />
-      <SignOut />
     </SafeAreaView>
   );
 };

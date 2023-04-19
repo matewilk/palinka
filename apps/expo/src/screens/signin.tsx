@@ -1,29 +1,47 @@
 import React from "react";
-import { View, SafeAreaView, Text, Image } from "react-native";
+import { View, SafeAreaView, Image } from "react-native";
+import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
+import { ScreenIndicator } from "../components/ScreenIndicator";
 import SignInWithOAuth from "../components/SignInWithOAuth";
 import { translate, tokens } from "../i18n";
 
 export const SignInSignUpScreen = () => {
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-1 items-center justify-end">
+      <Animated.View
+        entering={FadeInUp.duration(1000).springify()}
+        exiting={FadeInUp.duration(1000).springify()}
+        className="flex-1 items-center justify-end"
+      >
         <Image
-          className="h-64 w-64"
+          className="h-64 w-64 rounded-3xl"
           source={{ uri: "https://via.placeholder.com/250" }}
         />
-      </View>
-      <View className="flex-1 items-center justify-center gap-10 p-5">
-        <Text className="text-2xl font-extrabold">
+      </Animated.View>
+      <View className="flex-1 items-center justify-center gap-3 p-5">
+        <Animated.Text
+          entering={FadeInDown.duration(1000).springify()}
+          className="text-2xl font-extrabold"
+        >
           {translate(tokens.screens.login.header)}
-        </Text>
-        <Text className="text-xl text-gray-600">
+        </Animated.Text>
+        <Animated.Text
+          entering={FadeInDown.delay(200).duration(1000).springify()}
+          className="text-xl text-gray-600"
+        >
           {translate(tokens.screens.login.subheader)}
-        </Text>
+        </Animated.Text>
       </View>
-      <View className="w-full items-center p-5">
+      <Animated.View entering={FadeInUp.delay(400).duration(1000).springify()}>
+        <ScreenIndicator count={3} activeIndex={2} />
+      </Animated.View>
+      <Animated.View
+        entering={FadeInDown.delay(600).duration(1000).springify()}
+        className="w-full items-center p-5"
+      >
         <SignInWithOAuth />
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 };

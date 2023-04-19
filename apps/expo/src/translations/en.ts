@@ -1,14 +1,15 @@
 const en = {
   // Welcome Screen
-  welcomeHeader: "Hello, Let me become your daily assistant!",
+  welcomeHeader: "I'm Palinka, your personal assistant!",
   welcomeSubheader:
-    "Thank you for choosing me, I would like to save your valuable time!",
-  welcomeNextBtn: "Let's find out more",
+    "I'll help you with communication with parents, documents, and learning.",
+  welcomeNextBtn: "Let's get started",
 
   // Intro Screen
-  introHeader: "I'm Palinka, your personal assistant!",
-  introSubheader: "I'll help you with communication, documents, and learning.",
-  introNextBtn: "Let's get started",
+  introHeader: "Thank you for choosing me!",
+  introSubheader:
+    "We'll become great friends soon! I'll save you time and effort by providing you with the best results.",
+  introNextBtn: "Next",
 
   // Home Screen
   greeting: "Hey",
@@ -19,8 +20,14 @@ const en = {
 
   // Login Screen
   loginHeader: "Last step!",
-  loginSubheader: "Please login to continue",
+  loginSubheader: "Please login to see what I can do!",
   loginWithGoogleBtn: "Login with Google",
+
+  // Profile Screen
+  profileFirstName: "First name",
+  profileLastName: "Last name",
+  profileEmail: "Email",
+  profileDeleteAccountBtn: "Delete account",
 
   // Task Selection
   composeParentNoteTitle: "Compose Parent Note",
@@ -44,6 +51,11 @@ const en = {
   chatInputPlaceholder: "How can I improve the results?",
   chatSubmitBtn: "Send",
   assistantWorking: "I'm working on your request...",
+
+  // Drawer
+  drawerHome: "Home",
+  drawerProfile: "Profile",
+  drawerLogout: "Logout",
 };
 
 export default en;

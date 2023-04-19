@@ -34,16 +34,14 @@ const SignInWithOAuth = () => {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        className="rounded-full bg-black p-5"
-        onPress={handleSignInWithGooglePress}
-      >
-        <Text className="text-xl text-white">
-          {translate(tokens.screens.login.loginWithGoogleBtn)}
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      className="w-full items-center rounded-xl bg-black p-3"
+      onPress={handleSignInWithGooglePress}
+    >
+      <Text className="text-xl text-white">
+        {translate(tokens.screens.login.loginWithGoogleBtn)}
+      </Text>
+    </TouchableOpacity>
   );
 };
 

@@ -1,14 +1,14 @@
 const pl = {
   // Welcome Screen
-  welcomeHeader: "Cześć, pozwól, że stanię się Twoim codziennym asystentem!",
-  welcomeSubheader:
-    "Dziękuję, że mnie wybrałaś, chętnie zaoszczędzę Twój cenny czas! ",
-  welcomeNextBtn: "Dowiedz się więcej",
+  welcomeHeader: "Jestem Palinka, Twój osobisty asystent!",
+  welcomeSubheader: "Pomogę Ci w komunikacji z rodzicami, dokumentach i nauce.",
+  welcomeNextBtn: "Zaczynajmy!",
 
   // Intro Screen
-  introHeader: "Jestem Palinka, Twój osobisty asystent!",
-  introSubheader: "Pomogę Ci w komunikacji, dokumentach i nauce.",
-  introNextBtn: "Zaczynajmy!",
+  introHeader: "Dziękuję, że mnie wybrałaś!",
+  introSubheader:
+    "Wkrótce staniemy się najlepszymi przyjaciółmi! Pomogę Ci zaoszczędzić czas i wysiłek, zapewniając najlepsze rezultaty.",
+  introNextBtn: "Dalej",
 
   // Home Screen
   greeting: "Cześć",
@@ -19,8 +19,14 @@ const pl = {
 
   // Login Screen
   loginHeader: "Ostatni krok!",
-  loginSubheader: "Zaloguj się, aby kontynuować",
+  loginSubheader: "Zaloguj się, aby zobaczyć co potrafię!",
   loginWithGoogleBtn: "Zaloguj się z Google",
+
+  // Profile Screen
+  profileFirstName: "Imię",
+  profileLastName: "Nazwisko",
+  profileEmail: "Email",
+  profileDeleteAccountBtn: "Usuń konto",
 
   // Task Selection
   composeParentNoteTitle: "Napisz notatkę dla rodzica",
@@ -44,6 +50,11 @@ const pl = {
   chatInputPlaceholder: "Czy wprowadzić poprawki?",
   chatSubmitBtn: "Wyślij",
   assistantWorking: "Pracuję nad Twoim zadaniem...",
+
+  // Drawer
+  drawerHome: "Strona główna",
+  drawerProfile: "Profil",
+  drawerLogout: "Wyloguj",
 };
 
 export default pl;
