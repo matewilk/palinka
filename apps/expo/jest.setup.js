@@ -32,3 +32,9 @@ jest.mock("expo-localization", () => {
     },
   };
 });
+
+// react-native-reanimated jest issue workaround
+// https://github.com/software-mansion/react-native-reanimated/issues/3125
+global.ReanimatedDataMock = {
+  now: () => 0,
+};

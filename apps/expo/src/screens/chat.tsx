@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { useAuth } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   GiftedChat,
@@ -16,20 +15,7 @@ import { ActivityIndicator } from "react-native";
 import { trpc } from "../utils/trpc";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
 import { tokens, translate } from "../i18n";
-
-const SignOut = () => {
-  const { signOut } = useAuth();
-  return (
-    <View className="w-full rounded-lg p-4">
-      <Button
-        title="Sign Out"
-        onPress={() => {
-          signOut();
-        }}
-      />
-    </View>
-  );
-};
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const ChatScreen = () => {
   const { chatCompletion, addMessage, isAssistant, getGiftedChatMessages } =
@@ -73,7 +59,7 @@ export const ChatScreen = () => {
             backgroundColor: "#f0f0f0",
           },
           right: {
-            backgroundColor: "#007bff",
+            backgroundColor: "#000",
           },
         }}
         textStyle={{
@@ -91,15 +77,15 @@ export const ChatScreen = () => {
   const renderSend = (props: SendProps<IMessage>) => {
     return (
       <Send {...props}>
-        <View>
-          <Button
-            testID="gf-send-btn"
-            title={translate(tokens.screens.chat.submitBtn)}
-            onPress={() => {
-              props.onSend?.({ text: prompt.trim() }, true);
-            }}
-          />
-        </View>
+        <TouchableOpacity
+          testID="gf-send-btn"
+          className="bg-gray-800 p-3"
+          onPress={() => props.onSend?.({ text: prompt.trim() }, true)}
+        >
+          <Text className="text-white">
+            {translate(tokens.screens.chat.submitBtn)}
+          </Text>
+        </TouchableOpacity>
       </Send>
     );
   };
@@ -135,9 +121,8 @@ export const ChatScreen = () => {
         bottomOffset={20}
         text={prompt}
         onInputTextChanged={(text) => setPrompt(text)}
-        showUserAvatar={true}
+        renderAvatar={() => null}
       />
-      <SignOut />
     </SafeAreaView>
   );
 };

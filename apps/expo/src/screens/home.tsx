@@ -106,9 +106,9 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
               onPress={() => {
                 SheetManager.show("task-selection");
               }}
-              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-blue-500"
+              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-black"
             >
-              <Text className="text-white">
+              <Text className="text-lg text-white">
                 {translate(tokens.screens.home.selectTaskBtn)}
               </Text>
             </TouchableOpacity>

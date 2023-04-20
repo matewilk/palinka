@@ -47,9 +47,9 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
                 addMessage({ role: "user", content: prompt });
                 navigation.navigate("Chat");
               }}
-              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-blue-500"
+              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-black"
             >
-              <Text className="text-white">
+              <Text className="text-lg text-white">
                 {translate(tokens.screens.prompt.submitBtn)}
               </Text>
             </TouchableOpacity>

@@ -1,4 +1,16 @@
 const en = {
+  // Welcome Screen
+  welcomeHeader: "I'm Palinka, your personal assistant!",
+  welcomeSubheader:
+    "I'll help you with communication with parents, documents, and learning.",
+  welcomeNextBtn: "Let's get started",
+
+  // Intro Screen
+  introHeader: "Thank you for choosing me!",
+  introSubheader:
+    "We'll become great friends soon! I'll save you time and effort by providing you with the best results.",
+  introNextBtn: "Next",
+
   // Home Screen
   greeting: "Hey",
   greetingWithName: "Hello, I'm %{name}!",
@@ -6,7 +18,18 @@ const en = {
     "Let me help you with communication, documents, and learning. Let's make things easier together!",
   selectTaskBtn: "Select task",
 
-  // Taks Selection
+  // Login Screen
+  loginHeader: "Last step!",
+  loginSubheader: "Please login to see what I can do!",
+  loginWithGoogleBtn: "Login with Google",
+
+  // Profile Screen
+  profileFirstName: "First name",
+  profileLastName: "Last name",
+  profileEmail: "Email",
+  profileDeleteAccountBtn: "Delete account",
+
+  // Task Selection
   composeParentNoteTitle: "Compose Parent Note",
   composeParentNoteContent:
     "You are an expert kindergarden teacher with passion for teaching and respectfully communicating with parents. You'll be creating messages or notes for parents.",
@@ -28,6 +51,11 @@ const en = {
   chatInputPlaceholder: "How can I improve the results?",
   chatSubmitBtn: "Send",
   assistantWorking: "I'm working on your request...",
+
+  // Drawer
+  drawerHome: "Home",
+  drawerProfile: "Profile",
+  drawerLogout: "Logout",
 };
 
 export default en;
