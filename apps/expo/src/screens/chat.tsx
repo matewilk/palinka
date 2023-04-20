@@ -59,7 +59,7 @@ export const ChatScreen = () => {
             backgroundColor: "#f0f0f0",
           },
           right: {
-            backgroundColor: "#007bff",
+            backgroundColor: "#000",
           },
         }}
         textStyle={{
