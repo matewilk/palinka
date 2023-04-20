@@ -22,7 +22,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = ({ navigation }) => {
     <SafeAreaView className="flex-1">
       <Animated.View
         entering={FadeInUp.duration(1000).springify()}
-        exiting={FadeInUp.duration(1000).springify()}
         className="flex-1 items-center justify-end"
       >
         <Image

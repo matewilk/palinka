@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { WelcomeScreen } from "../screens/welcome";
 import { IntroScreen } from "../screens/intro";
@@ -22,7 +19,6 @@ function AuthStackNavigator() {
       initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
-        // cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
       }}
     >
       <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
