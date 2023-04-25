@@ -6,6 +6,7 @@ import ActionSheet, {
   SheetProps,
   SheetManager,
 } from "react-native-actions-sheet";
+import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
 import { tokens, translate } from "../i18n";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
@@ -68,6 +69,7 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
               onPress={() => {
                 resetChatCompletion();
                 addMessage(message);
+                SheetManager.hide("task-selection");
                 navigation.navigate("Prompt");
               }}
             />
@@ -86,22 +88,31 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
   return (
     <SafeAreaView>
       <View className="h-full w-full p-4">
-        {/* Container for the avatar icon, text, and button */}
-        <View className="flex-1 items-center justify-start pt-24">
+        <Animated.View
+          entering={FadeInDown.duration(500).springify()}
+          className="flex-1 items-center justify-start pt-24"
+        >
           <View className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
             <Text className="text-4xl font-bold text-gray-500">P</Text>
           </View>
 
-          {/* Text */}
-          <Text className="mt-4 p-4 pb-0 text-lg">
+          <Animated.Text
+            entering={FadeInDown.delay(100).duration(500).springify()}
+            className="mt-4 p-4 pb-0 text-lg"
+          >
             {translate(tokens.screens.home.helloWithName, { name: "Palinka" })}
-          </Text>
-          <Text className="mt-4 px-4 text-lg">
+          </Animated.Text>
+          <Animated.Text
+            entering={FadeInDown.delay(200).duration(500).springify()}
+            className="mt-4 px-4 text-lg"
+          >
             {translate(tokens.screens.home.helloContent)}
-          </Text>
+          </Animated.Text>
 
-          {/* Rounded button */}
-          <View className="w-full flex-1 items-center justify-end pb-4">
+          <Animated.View
+            entering={FadeInUp.delay(300).duration(500).springify()}
+            className="w-full flex-1 items-center justify-end pb-4"
+          >
             <TouchableOpacity
               onPress={() => {
                 SheetManager.show("task-selection");
@@ -112,8 +123,8 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
                 {translate(tokens.screens.home.selectTaskBtn)}
               </Text>
             </TouchableOpacity>
-          </View>
-        </View>
+          </Animated.View>
+        </Animated.View>
       </View>
       <TaskSelectionSheet
         sheetId="task-selection"
