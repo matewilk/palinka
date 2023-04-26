@@ -9,8 +9,8 @@ const Join = () => {
             className="h-48 w-48 rounded-xl"
           />
         </div>
-        <div className="flex flex-col items-start justify-center p-10 md:w-2/3 md:pr-10">
-          <div className="text-3xl font-bold tracking-tight md:text-3xl">
+        <div className="flex flex-col items-start justify-center gap-3 p-10 md:w-2/3 md:pr-10">
+          <div className="text-3xl font-bold tracking-tight text-gray-700 md:text-3xl">
             Join the waiting list now & be first to access our app's treasures.
             Sign up today!
           </div>
