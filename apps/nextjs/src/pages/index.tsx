@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 
-import Layout from "./layout";
-import Hero from "./components/Hero";
-import Steps from "./components/Steps";
-import Features from "./components/Features";
-import Join from "./components/Join";
+import Layout from "../layout";
+import Hero from "../components/Hero";
+import Steps from "../components/Steps";
+import Features from "../components/Features";
+import Join from "../components/Join";
 
 const Home: NextPage = () => {
   return (
