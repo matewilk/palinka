@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { HomeScreen } from "../screens/home";
 import { PromptScreen } from "../screens/prompt";
@@ -22,6 +23,9 @@ function MainStackNavigator() {
         headerTitleAlign: "center",
         headerShown: true,
         headerRight: () => <HamburgerMenu navigation={navigation} />,
+        headerBackImage: () => (
+          <Ionicons name="chevron-back-outline" size={32} color="black" />
+        ),
       })}
     >
       <MainStack.Screen name="Home" component={HomeScreen} />
