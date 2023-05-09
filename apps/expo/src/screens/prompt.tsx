@@ -49,7 +49,7 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
             className="w-full items-center justify-end pb-4"
           >
             <AutoExpandingTextInput
-              className="mb-2 w-full rounded border border-gray-500 p-2"
+              className="w-full rounded border border-gray-500 p-3"
               onChangeText={handlePromptChange}
               placeholder={translate(tokens.screens.prompt.inputPlaceholder)}
             />

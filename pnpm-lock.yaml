@@ -35,6 +35,7 @@ importers:
       '@babel/preset-env': ^7.19.3
       '@babel/runtime': ^7.19.0
       '@clerk/clerk-expo': ^0.16.0
+      '@expo/vector-icons': ^13.0.0
       '@react-navigation/drawer': ^6.6.2
       '@react-navigation/native': ^6.1.6
       '@react-navigation/stack': ^6.3.16
@@ -77,6 +78,7 @@ importers:
       '@acme/api': link:../../packages/api
       '@acme/tailwind-config': link:../../packages/config/tailwind
       '@clerk/clerk-expo': 0.16.0_ywzk4joryjky42pcoja7d3gmb4
+      '@expo/vector-icons': 13.0.0
       '@react-navigation/drawer': 6.6.2_rm62nprqxceidy3sb7hz3ozlna
       '@react-navigation/native': 6.1.6_ib4chsmsbwwfxpzwl72z3r2dq4
       '@react-navigation/stack': 6.3.16_mewwxoooywvxijrwk23dqflz6m

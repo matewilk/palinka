@@ -11,6 +11,7 @@ import {
   SendProps,
 } from "react-native-gifted-chat";
 import { ActivityIndicator } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { trpc } from "../utils/trpc";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
@@ -79,12 +80,10 @@ export const ChatScreen = () => {
       <Send {...props}>
         <TouchableOpacity
           testID="gf-send-btn"
-          className="bg-gray-800 p-3"
+          className="h-full bg-gray-800 py-2 px-4"
           onPress={() => props.onSend?.({ text: prompt.trim() }, true)}
         >
-          <Text className="text-white">
-            {translate(tokens.screens.chat.submitBtn)}
-          </Text>
+          <Ionicons name="send" size={24} color="white" />
         </TouchableOpacity>
       </Send>
     );
@@ -97,7 +96,7 @@ export const ChatScreen = () => {
           style={{ margin: 10, alignItems: "center", justifyContent: "center" }}
           className="m-5 justify-center align-middle"
         >
-          <ActivityIndicator size="small" color="#007bff" />
+          <ActivityIndicator size="small" color="#000" />
           <Text className="mt-5">
             {translate(tokens.screens.chat.assistantWorking)}
           </Text>
