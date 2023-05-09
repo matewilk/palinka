@@ -19,6 +19,7 @@ function MainStackNavigator() {
     <MainStack.Navigator
       initialRouteName="Home"
       screenOptions={({ navigation }) => ({
+        headerTitleAlign: "center",
         headerShown: true,
         headerRight: () => <HamburgerMenu navigation={navigation} />,
       })}

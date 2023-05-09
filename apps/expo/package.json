@@ -5,7 +5,7 @@
   "scripts": {
     "start": "expo start",
     "with-env": "dotenv -e ./.env --",
-    "dev": "pnpm with-env expo start --android",
+    "dev": "pnpm with-env expo start --ios",
     "clean": "rm -rf .expo .turbo node_modules",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -17,6 +17,7 @@
     "@acme/api": "*",
     "@acme/tailwind-config": "*",
     "@clerk/clerk-expo": "^0.16.0",
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
