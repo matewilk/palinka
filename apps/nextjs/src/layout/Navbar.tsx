@@ -25,7 +25,7 @@ export default function Navbar() {
 
   // start mobile first plus facile
   return (
-    <nav className="fixed top-0 flex w-full max-w-6xl items-center border-b border-b-stone-200 bg-white p-4">
+    <nav className="fixed top-0 z-50 flex w-full max-w-6xl items-center border-b border-b-stone-200 bg-white p-4">
       <div className="flex w-full flex-wrap items-center justify-between md:flex-nowrap">
         <h1 className="cursor-pointer text-xl font-bold text-black">Logo</h1>
 
