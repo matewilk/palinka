@@ -20,6 +20,7 @@ const Home: NextPage = () => {
           ]}
         />
         <Features />
+        <Features reverse={true} />
         <Join />
       </main>
     </Layout>

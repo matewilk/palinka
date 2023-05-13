@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 
 const topSlide = {
   initial: { y: -200, opacity: 0 },
-  animate: { y: 0, opacity: 1 },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", damping: 10, stiffness: 100 },
+  },
 };
 
 const leftSlide = {
