@@ -121,6 +121,7 @@ export const ChatScreen = () => {
         text={prompt}
         onInputTextChanged={(text) => setPrompt(text)}
         renderAvatar={() => null}
+        placeholder={translate(tokens.screens.chat.inputPlaceholder)}
       />
     </SafeAreaView>
   );

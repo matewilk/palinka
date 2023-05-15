@@ -24,6 +24,11 @@ const leftSlide = {
   },
 };
 
+const headingText = "Revolutionize Your Work with AI Teacher Assistant!";
+const subheadingText =
+  "Enhance teaching and nurture young minds using smart, adaptable AI teacher assistant.";
+const buttonText = "Join";
+
 const Hero = () => {
   return (
     <motion.section
@@ -36,20 +41,19 @@ const Hero = () => {
           variants={topSlide}
           className="text-4xl font-bold tracking-tight md:text-5xl"
         >
-          Revolutionize Your Work with AI Teacher Assistant!
+          {headingText}
         </motion.h1>
         <motion.h3
           variants={leftSlide}
           className="py-5 text-xl tracking-tight md:py-10 md:text-xl"
         >
-          Enhance teaching and nurture young minds using smart, adaptable AI
-          teacher assistant.
+          {subheadingText}
         </motion.h3>
         <motion.button
           variants={leftSlide}
           className="mx-auto mt-4 w-24 items-center justify-center rounded-lg bg-black p-2 px-1 font-medium text-white hover:bg-gray-800 md:mx-0 md:mt-0 md:flex"
         >
-          Join
+          {buttonText}
         </motion.button>
       </div>
 

@@ -1,16 +1,16 @@
 import { Fragment } from "react";
 
 interface StepWithTextProps {
-  text: string;
+  step: string;
   isLastStep: boolean;
 }
 
-const StepWithText: React.FC<StepWithTextProps> = ({ text, isLastStep }) => {
+const StepWithText: React.FC<StepWithTextProps> = ({ step, isLastStep }) => {
   return (
     <Fragment>
       <div className="flex h-32 flex-col items-center md:h-24">
         <div className="h-24 w-24 flex-none rounded-full border border-solid bg-gray-300"></div>
-        <div className="mt-2 flex justify-center text-gray-500">{text}</div>
+        <div className="mt-2 flex justify-center text-gray-500">{step}</div>
       </div>
 
       {!isLastStep && (
@@ -21,31 +21,17 @@ const StepWithText: React.FC<StepWithTextProps> = ({ text, isLastStep }) => {
 };
 
 interface ConnectedStepsProps {
-  numberOfSteps: number;
-  texts: string[];
+  steps: string[];
 }
 
-const ConnectedSteps: React.FC<ConnectedStepsProps> = ({
-  numberOfSteps,
-  texts,
-}) => {
-  if (numberOfSteps !== texts.length) {
-    return (
-      <div>
-        Error: The number of steps does not match the number of texts provided.
-      </div>
-    );
-  }
-
-  const steps = Array.from({ length: numberOfSteps }, (_, index) => index);
-
+const ConnectedSteps: React.FC<ConnectedStepsProps> = ({ steps }) => {
   return (
     <section className="flex w-full items-center justify-center px-4 py-20">
       <div className="flex h-[32rem] flex-grow flex-col items-center space-y-2 sm:px-10 md:h-full md:flex-row md:space-y-0 md:space-x-8 md:px-20 xl:px-36">
-        {steps.map((_, index) => (
+        {steps.map((step, index) => (
           <StepWithText
             key={index}
-            text={texts[index] as string}
+            step={step}
             isLastStep={index === steps.length - 1}
           />
         ))}
