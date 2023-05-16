@@ -1,5 +1,5 @@
 import React from "react";
-import { View, SafeAreaView, Image, Text } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
 import Logo from "../../assets/logo.svg";

@@ -35,7 +35,7 @@ const SignInWithOAuth = () => {
 
   return (
     <TouchableOpacity
-      className="w-full items-center rounded-3xl bg-primary p-3"
+      className="w-full items-center rounded-full bg-primary p-3"
       onPress={handleSignInWithGooglePress}
     >
       <Text className="text-xl text-white">

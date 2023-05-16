@@ -57,7 +57,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = ({ navigation }) => {
           className="w-full items-center p-5"
         >
           <TouchableOpacity
-            className="w-full items-center rounded-3xl bg-primary p-3"
+            className="w-full items-center rounded-full bg-primary p-3"
             onPress={() => navigation.navigate("Intro")}
           >
             <Text className="text-lg text-white">

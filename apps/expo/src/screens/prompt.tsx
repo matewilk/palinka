@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
 import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
+import PromptImage from "../../assets/welcome_image.svg";
 import { MainStackParamList } from "../navigation/MainStackNavigator";
 import { AutoExpandingTextInput } from "../components/AutoExpandingTextInput";
 import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
@@ -20,15 +27,20 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
 
   return (
     <SafeAreaView>
-      <View className="h-full w-full p-4">
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "space-between",
+          flexDirection: "column",
+        }}
+        className="h-full p-4"
+      >
         <Animated.View
+          className="justify-start pt-24"
           entering={FadeInDown.duration(500).springify()}
-          className="flex flex-1 flex-col justify-between"
         >
-          <View className="items-center pt-24">
-            <View className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
-              <Text className="text-4xl font-bold text-gray-500">P</Text>
-            </View>
+          <View className="items-center">
+            <PromptImage width={250} height={250} />
 
             <Animated.Text
               entering={FadeInDown.delay(100).duration(500).springify()}
@@ -43,31 +55,34 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
               {translate(tokens.screens.prompt.subheader)}
             </Animated.Text>
           </View>
-
-          <Animated.View
-            entering={FadeInUp.delay(300).duration(500).springify()}
-            className="w-full items-center justify-end pb-4"
-          >
-            <AutoExpandingTextInput
-              className="w-full rounded border border-gray-500 p-3"
-              onChangeText={handlePromptChange}
-              placeholder={translate(tokens.screens.prompt.inputPlaceholder)}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                resetUserPrompt();
-                addMessage({ role: "user", content: prompt });
-                navigation.navigate("Chat");
-              }}
-              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-black"
-            >
-              <Text className="text-lg text-white">
-                {translate(tokens.screens.prompt.submitBtn)}
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
         </Animated.View>
-      </View>
+
+        <Animated.View
+          className="justify-end"
+          entering={FadeInUp.delay(300).duration(500).springify()}
+        >
+          <AutoExpandingTextInput
+            className="w-full rounded-full border border-gray-300 p-3"
+            onChangeText={handlePromptChange}
+            placeholder={translate(tokens.screens.prompt.inputPlaceholder)}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              resetUserPrompt();
+              addMessage({ role: "user", content: prompt });
+              navigation.navigate("Chat");
+            }}
+            className={`mt-4 w-full items-center justify-center rounded-3xl p-3 ${
+              !prompt ? "bg-primary opacity-50" : "bg-primary"
+            }`}
+            disabled={!prompt}
+          >
+            <Text className="text-lg text-white">
+              {translate(tokens.screens.prompt.submitBtn)}
+            </Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
