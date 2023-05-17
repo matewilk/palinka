@@ -14,7 +14,7 @@ export const ScreenIndicator = ({
       {Array.from({ length: count }, (_, i) => (
         <View
           className={`h-2 w-2 rounded-full ${
-            i === activeIndex ? "bg-black" : "bg-white"
+            i === activeIndex ? "bg-primary-dark" : "bg-white"
           }`}
           key={i}
         />

@@ -74,8 +74,8 @@ export const ProfileScreen = () => {
             entering={FadeInUp.delay(600).duration(500).springify()}
             className="w-full flex-1 items-center justify-end pb-4"
           >
-            <TouchableOpacity className="w-full items-center rounded bg-red-400 py-3">
-              <Text className="text-center font-bold text-white">
+            <TouchableOpacity className="w-full items-center rounded-full bg-red-lightest py-3">
+              <Text className="text-center font-bold text-red-light">
                 {translate(tokens.screens.profile.deleteAccountBtn)}
               </Text>
             </TouchableOpacity>

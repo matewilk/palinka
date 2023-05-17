@@ -9,6 +9,7 @@ import {
   IMessage,
   BubbleProps,
   SendProps,
+  InputToolbar,
 } from "react-native-gifted-chat";
 import { ActivityIndicator } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -57,10 +58,13 @@ export const ChatScreen = () => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: "#f0f0f0",
+            backgroundColor: "#fff",
+            padding: 3,
+            // width: "90%",
           },
           right: {
-            backgroundColor: "#000",
+            backgroundColor: "#6B4EFF",
+            padding: 3,
           },
         }}
         textStyle={{
@@ -75,12 +79,23 @@ export const ChatScreen = () => {
     );
   };
 
+  const renderInputToolbar = (props: any) => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          borderRadius: 30,
+        }}
+      />
+    );
+  };
+
   const renderSend = (props: SendProps<IMessage>) => {
     return (
       <Send {...props}>
         <TouchableOpacity
           testID="gf-send-btn"
-          className="h-full bg-gray-800 py-2 px-4"
+          className="h-full rounded-r-3xl bg-primary py-2 px-4"
           onPress={() => props.onSend?.({ text: prompt.trim() }, true)}
         >
           <Ionicons name="send" size={24} color="white" />
@@ -96,7 +111,7 @@ export const ChatScreen = () => {
           style={{ margin: 10, alignItems: "center", justifyContent: "center" }}
           className="m-5 justify-center align-middle"
         >
-          <ActivityIndicator size="small" color="#000" />
+          <ActivityIndicator size="small" color="#6B4EFF" />
           <Text className="mt-5">
             {translate(tokens.screens.chat.assistantWorking)}
           </Text>
@@ -115,6 +130,7 @@ export const ChatScreen = () => {
           _id: 1,
         }}
         renderBubble={renderBubble}
+        renderInputToolbar={renderInputToolbar}
         renderSend={renderSend}
         renderFooter={renderFooter}
         bottomOffset={20}

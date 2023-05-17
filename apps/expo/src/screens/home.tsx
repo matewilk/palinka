@@ -46,9 +46,9 @@ const SelectionButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="mt-4 h-10 w-full items-center justify-center rounded-lg border"
+      className="my-2 w-full items-center justify-center rounded-3xl border border-primary p-3"
     >
-      <Text>{title}</Text>
+      <Text className="text-base text-primary-dark">{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -61,25 +61,24 @@ const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
   return (
     <ActionSheet ref={actionSheetRef} id={sheetId}>
       <View className="p-4">
-        <View>
-          {selection.map(({ title, message }) => (
-            <SelectionButton
-              key={title}
-              title={title}
-              onPress={() => {
-                resetChatCompletion();
-                addMessage(message);
-                SheetManager.hide("task-selection");
-                navigation.navigate("Prompt");
-              }}
-            />
-          ))}
-        </View>
+        {selection.map(({ title, message }) => (
+          <SelectionButton
+            key={title}
+            title={title}
+            onPress={() => {
+              resetChatCompletion();
+              addMessage(message);
+              SheetManager.hide("task-selection");
+              navigation.navigate("Prompt");
+            }}
+          />
+        ))}
       </View>
     </ActionSheet>
   );
 };
 
+import HomeImage from "../../assets/welcome_image.svg";
 import { MainStackParamList } from "../navigation/MainStackNavigator";
 
 type HomeScreenProps = StackScreenProps<MainStackParamList, "Home">;
@@ -92,9 +91,7 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
           entering={FadeInDown.duration(500).springify()}
           className="flex-1 items-center justify-start pt-24"
         >
-          <View className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
-            <Text className="text-4xl font-bold text-gray-500">P</Text>
-          </View>
+          <HomeImage width={250} height={250} />
 
           <Animated.Text
             entering={FadeInDown.delay(100).duration(500).springify()}
@@ -117,7 +114,7 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
               onPress={() => {
                 SheetManager.show("task-selection");
               }}
-              className="mt-6 h-10 w-full items-center justify-center rounded-lg bg-black"
+              className="w-full items-center justify-center rounded-full bg-primary p-3"
             >
               <Text className="text-lg text-white">
                 {translate(tokens.screens.home.selectTaskBtn)}

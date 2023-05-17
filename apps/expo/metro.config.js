@@ -10,6 +10,20 @@ const workspaceRoot = path.resolve(projectRoot, "../..");
 // Create the default Metro config
 const config = getDefaultConfig(projectRoot);
 
+// Configure svg transformer
+const { transformer, resolver } = config;
+
+config.transformer = {
+  ...transformer,
+  babelTransformerPath: require.resolve("react-native-svg-transformer"),
+};
+
+config.resolver = {
+  ...resolver,
+  assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
+  sourceExts: [...resolver.sourceExts, "svg"],
+};
+
 // Add the additional `cjs` extension to the resolver
 config.resolver.sourceExts.push("cjs");
 
