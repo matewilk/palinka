@@ -15,6 +15,7 @@ function ProfileStackNavigator() {
     <ProfileStack.Navigator
       initialRouteName="Profile"
       screenOptions={({ navigation }) => ({
+        headerTitleAlign: "center",
         headerShown: true,
         headerRight: () => <HamburgerMenu navigation={navigation} />,
       })}
