@@ -16,6 +16,15 @@ const openAiConfig = new Configuration({
 export const openai = new OpenAIApi(openAiConfig);
 export { prisma };
 
+import { S3 } from "@aws-sdk/client-s3";
+export const s3 = new S3({
+  region: process.env.AWS_S3_BUCKET_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+  },
+});
+
 /**
  * Replace this with an object if you want to pass things to createContextInner
  */
@@ -23,6 +32,7 @@ type ContextProps = {
   auth: SignedInAuthObject | SignedOutAuthObject;
   prisma: typeof prisma;
   openai: typeof openai;
+  s3: typeof s3;
 };
 
 /** Use this helper for:
@@ -34,11 +44,13 @@ export const createContextInner = async ({
   auth,
   prisma,
   openai,
+  s3,
 }: ContextProps) => {
   return {
     auth,
     prisma,
     openai,
+    s3,
   };
 };
 
@@ -47,7 +59,12 @@ export const createContextInner = async ({
  * @link https://trpc.io/docs/context
  **/
 export const createContext = async (opts: CreateNextContextOptions) => {
-  return await createContextInner({ auth: getAuth(opts.req), prisma, openai });
+  return await createContextInner({
+    auth: getAuth(opts.req),
+    prisma,
+    openai,
+    s3,
+  });
 };
 
 export type Context = inferAsyncReturnType<typeof createContext>;
