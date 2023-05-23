@@ -61,6 +61,7 @@ export enum CreateLessonPlan {
 export enum DrawerPanel {
   home = "drawerHome",
   profile = "drawerProfile",
+  scaner = "drawerScaner",
   logout = "drawerLogout",
 }
 

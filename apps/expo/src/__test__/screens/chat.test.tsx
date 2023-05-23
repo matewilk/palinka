@@ -57,7 +57,7 @@ describe("ChatScreen", () => {
       },
     });
 
-    const input = getByTestId("Type a message...");
+    const input = getByTestId("test-chat-input-placeholder");
     fireEvent.changeText(input, "Hello World!!");
 
     const sendButton = getByTestId("gf-send-btn");
