@@ -83,6 +83,7 @@ export const ChatScreen = () => {
     return (
       <InputToolbar
         {...props}
+        testID="gf-input-toolbar"
         containerStyle={{
           borderRadius: 30,
         }}
@@ -137,7 +138,11 @@ export const ChatScreen = () => {
         text={prompt}
         onInputTextChanged={(text) => setPrompt(text)}
         renderAvatar={() => null}
-        placeholder={translate(tokens.screens.chat.inputPlaceholder)}
+        placeholder={
+          process.env.NODE_ENV === "test"
+            ? "test-chat-input-placeholder"
+            : translate(tokens.screens.chat.inputPlaceholder)
+        }
       />
     </SafeAreaView>
   );

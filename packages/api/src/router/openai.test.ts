@@ -5,6 +5,7 @@ import { appRouter } from "../router";
 import { prisma } from "@acme/db";
 import type { SignedInAuthObject } from "@clerk/nextjs/api";
 import type { OpenAIApi } from "openai";
+import type { S3 } from "@aws-sdk/client-s3";
 
 describe("openaiRouter", () => {
   describe("chatCompletion", () => {
@@ -13,6 +14,7 @@ describe("openaiRouter", () => {
       userId: "123",
     } as SignedInAuthObject;
     let openai: OpenAIApi;
+    let s3: S3;
 
     beforeEach(() => {
       chatCompletionMock = jest.fn().mockResolvedValue({
@@ -23,10 +25,13 @@ describe("openaiRouter", () => {
       openai = {
         createChatCompletion: chatCompletionMock,
       } as unknown as OpenAIApi;
+      s3 = {
+        send: jest.fn(),
+      } as unknown as S3;
     });
 
     it("should return data", async () => {
-      const ctx = await createContextInner({ auth, prisma, openai });
+      const ctx = await createContextInner({ auth, prisma, openai, s3 });
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
@@ -42,7 +47,7 @@ describe("openaiRouter", () => {
     it("should return generic error when something goes wrong", async () => {
       chatCompletionMock.mockRejectedValue(new Error("test"));
 
-      const ctx = await createContextInner({ auth, prisma, openai });
+      const ctx = await createContextInner({ auth, prisma, openai, s3 });
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
@@ -60,7 +65,7 @@ describe("openaiRouter", () => {
         message: "test message",
       });
 
-      const ctx = await createContextInner({ auth, prisma, openai });
+      const ctx = await createContextInner({ auth, prisma, openai, s3 });
       const caller = appRouter.createCaller(ctx);
 
       type Input = inferProcedureInput<typeof openaiRouter.chatCompletion>;
