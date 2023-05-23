@@ -9,10 +9,12 @@ import { useAuth } from "@clerk/clerk-expo";
 
 import { translate, tokens } from "../i18n";
 import MainStackNavigator from "./MainStackNavigator";
+import OcrStackNavigator from "./OcrStackNavigator";
 import ProfileStackNavigator from "./ProfileStackNavigator";
 
 type DrawerParamList = {
   Home: undefined;
+  Scaner: undefined;
   Profile: undefined;
 };
 
@@ -54,6 +56,10 @@ function AppDrawerNavigator() {
       <Drawer.Screen
         name={translate(tokens.drawer.home) as keyof DrawerParamList}
         component={MainStackNavigator}
+      />
+      <Drawer.Screen
+        name={translate(tokens.drawer.scaner) as keyof DrawerParamList}
+        component={OcrStackNavigator}
       />
       <Drawer.Screen
         name={translate(tokens.drawer.profile) as keyof DrawerParamList}

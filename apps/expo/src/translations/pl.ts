@@ -53,6 +53,7 @@ const pl = {
 
   // Drawer
   drawerHome: "Strona główna",
+  drawerScaner: "Skaner",
   drawerProfile: "Profil",
   drawerLogout: "Wyloguj",
 };

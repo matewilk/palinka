@@ -54,6 +54,7 @@ const en = {
 
   // Drawer
   drawerHome: "Home",
+  drawerScaner: "Scaner",
   drawerProfile: "Profile",
   drawerLogout: "Logout",
 };
