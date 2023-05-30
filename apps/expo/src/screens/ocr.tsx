@@ -2,19 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
-  Button,
   Image,
-  ActivityIndicator,
+  SafeAreaView,
   ScrollView,
   Dimensions,
 } from "react-native";
 import { DetectDocumentTextCommandOutput } from "@aws-sdk/client-textract";
-
-import {
-  useImageUpload,
-  UploadStatus,
-  getFirstImage,
-} from "../hooks/useImageUpload";
+import type { StackScreenProps } from "@react-navigation/stack";
+import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
+import { OcrStackParamList } from "../navigation/OcrStackNavigator";
 
 interface TextractResultsProps {
   results: DetectDocumentTextCommandOutput;
@@ -43,45 +39,39 @@ const TextractResults: React.FC<TextractResultsProps> = ({ results }) => {
 
 const screenHeight = Dimensions.get("window").height;
 
-export const OcrScreen = () => {
-  const [textractResult, setTextractResult] =
-    useState<DetectDocumentTextCommandOutput>();
+import { isPortrait } from "../hooks/useImageUpload";
 
-  const { image, pickImage, uploadImage, status, error } = useImageUpload();
+type OcrResultScreenProps = StackScreenProps<OcrStackParamList, "Result">;
 
-  const firstImage = getFirstImage(image);
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const data = await uploadImage();
-      setTextractResult(data);
-    };
-    if (status === UploadStatus.UPLOADING) {
-      fetchImage();
-    }
-  }, [status]);
+export const OcrResultScreen = ({ route }: OcrResultScreenProps) => {
+  const { image, data } = route.params;
 
   return (
-    <View>
-      <Button title="Pick Image" onPress={pickImage} />
-      {firstImage && (
-        <View className="flex items-center p-1">
-          <Image
-            source={{ uri: firstImage.uri }}
-            style={{
-              aspectRatio: firstImage.width / firstImage.height,
-              height: screenHeight * 0.25,
-            }}
-            className="w-full bg-green-200"
-          />
-        </View>
-      )}
-      {image?.assets && <Button title="Extract Text" onPress={uploadImage} />}
-      {status === UploadStatus.UPLOADING && <ActivityIndicator />}
-      {error && <Text>{error}</Text>}
-      {status === UploadStatus.FAILED && <Text>Upload Failed</Text>}
-      {status === UploadStatus.COMPLETED && <Text>Upload Success</Text>}
-      {textractResult && <TextractResults results={textractResult} />}
-    </View>
+    <SafeAreaView>
+      <View className="h-full p-4">
+        <Animated.View
+          className="items-center"
+          entering={FadeInDown.duration(500).springify()}
+        >
+          {image && (
+            <View className="flex items-center p-1">
+              <Image
+                source={{ uri: image.uri }}
+                style={{
+                  aspectRatio: image.width / image.height,
+                  height: isPortrait(image)
+                    ? screenHeight * 0.2
+                    : screenHeight * 0.1,
+                }}
+                className="w-full bg-primary-lightest"
+              />
+            </View>
+          )}
+        </Animated.View>
+        <Animated.ScrollView>
+          <TextractResults results={data} />
+        </Animated.ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
