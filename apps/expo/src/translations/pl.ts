@@ -51,6 +51,11 @@ const pl = {
   chatSubmitBtn: "Wyślij",
   assistantWorking: "Pracuję nad Twoim zadaniem...",
 
+  // OCR Scan Screen
+  ocrScanSubheader: "Wybierz zdjęcie z galerii aby rozpocząć skanowanie.",
+  selectImageBtn: "Wybierz zdjęcie",
+  scanBtn: "Skanuj",
+
   // Drawer
   drawerHome: "Strona główna",
   drawerScaner: "Skaner",

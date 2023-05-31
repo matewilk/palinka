@@ -1,11 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import { OcrResultScreen } from "../screens/ocr";
-import { PickImageScreen } from "../screens/pickImage";
-import { HamburgerMenu } from "./HamburgerMenu";
 import { ImagePickerAsset } from "expo-image-picker";
 import { DetectDocumentTextCommandOutput } from "@aws-sdk/client-textract";
+
+import { OcrScanScreen } from "../screens/ocrScan";
+import { OcrResultScreen } from "../screens/ocrResult";
+import { HamburgerMenu } from "./HamburgerMenu";
 
 export type OcrStackParamList = {
   Scaner: undefined;
@@ -27,7 +27,7 @@ function OcrStackNavigator() {
         headerRight: () => <HamburgerMenu navigation={navigation} />,
       })}
     >
-      <OcrStack.Screen name="Scaner" component={PickImageScreen} />
+      <OcrStack.Screen name="Scaner" component={OcrScanScreen} />
       <OcrStack.Screen name="Result" component={OcrResultScreen} />
     </OcrStack.Navigator>
   );

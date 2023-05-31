@@ -43,6 +43,12 @@ export enum ChatScreen {
   assistantWorking = "assistantWorking",
 }
 
+export enum OcrScanScreen {
+  subheader = "ocrScanSubheader",
+  selectImageBtn = "selectImageBtn",
+  scanBtn = "scanBtn",
+}
+
 export enum ComposeParentNote {
   title = "composeParentNoteTitle",
   content = "composeParentNoteContent",
@@ -80,6 +86,7 @@ export const tokens = {
     home: HomeScreen,
     prompt: PromptScreen,
     chat: ChatScreen,
+    ocrScan: OcrScanScreen,
   },
   selection: {
     tasks: taskSelection,

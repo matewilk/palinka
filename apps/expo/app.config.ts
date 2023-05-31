@@ -4,7 +4,7 @@ const CLERK_PUBLISHABLE_KEY = process.env.CLERK_PUBLISHABLE_KEY;
 
 const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
   scheme: "palinka",
-  name: "palinla",
+  name: "palinka",
   slug: "palinka",
   version: "1.0.0",
   orientation: "portrait",

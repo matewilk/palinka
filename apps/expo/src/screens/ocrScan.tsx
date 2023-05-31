@@ -14,7 +14,6 @@ import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 import Logo from "../../assets/logo.svg";
 import { OcrStackParamList } from "../navigation/OcrStackNavigator";
 import { translate, tokens } from "../i18n";
-
 import {
   useImageUpload,
   getFirstImage,
@@ -23,9 +22,9 @@ import {
 
 const screenHeight = Dimensions.get("window").height;
 
-type PickImageScreenProps = StackScreenProps<OcrStackParamList, "Scaner">;
+type OcrScanScreenProps = StackScreenProps<OcrStackParamList, "Scaner">;
 
-export const PickImageScreen = ({ navigation }: PickImageScreenProps) => {
+export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
   const { image, pickImage, uploadImage, detectText, status } =
     useImageUpload();
   const [hasScanned, setHasScanned] = useState(false);
@@ -81,7 +80,7 @@ export const PickImageScreen = ({ navigation }: PickImageScreenProps) => {
             </View>
           ) : (
             <Text className="text-center text-xl">
-              Select image from gallery to start scanning
+              {translate(tokens.screens.ocrScan.subheader)}
             </Text>
           )}
 
@@ -105,8 +104,7 @@ export const PickImageScreen = ({ navigation }: PickImageScreenProps) => {
               className="w-full items-center justify-center rounded-full bg-primary p-3"
             >
               <Text className="text-lg text-white">
-                {/* {translate(tokens.screens.home.selectTaskBtn)} */}
-                Select Image
+                {translate(tokens.screens.ocrScan.selectImageBtn)}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -117,8 +115,7 @@ export const PickImageScreen = ({ navigation }: PickImageScreenProps) => {
               disabled={!firstImage}
             >
               <Text className="text-lg text-white">
-                {/* {translate(tokens.screens.home.selectTaskBtn)} */}
-                Scan
+                {translate(tokens.screens.ocrScan.scanBtn)}
               </Text>
             </TouchableOpacity>
           </Animated.View>
