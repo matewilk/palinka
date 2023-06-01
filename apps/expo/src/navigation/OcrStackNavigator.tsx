@@ -5,6 +5,8 @@ import { DetectDocumentTextCommandOutput } from "@aws-sdk/client-textract";
 
 import { OcrScanScreen } from "../screens/ocrScan";
 import { OcrResultScreen } from "../screens/ocrResult";
+import { PromptScreen } from "../screens/prompt";
+import { ChatScreen } from "../screens/chat";
 import { HamburgerMenu } from "./HamburgerMenu";
 
 export type OcrStackParamList = {
@@ -13,6 +15,8 @@ export type OcrStackParamList = {
     image: ImagePickerAsset;
     data: DetectDocumentTextCommandOutput;
   };
+  Prompt: undefined;
+  Chat: undefined;
 };
 
 const OcrStack = createStackNavigator<OcrStackParamList>();
@@ -29,6 +33,8 @@ function OcrStackNavigator() {
     >
       <OcrStack.Screen name="Scaner" component={OcrScanScreen} />
       <OcrStack.Screen name="Result" component={OcrResultScreen} />
+      <OcrStack.Screen name="Prompt" component={PromptScreen} />
+      <OcrStack.Screen name="Chat" component={ChatScreen} />
     </OcrStack.Navigator>
   );
 }

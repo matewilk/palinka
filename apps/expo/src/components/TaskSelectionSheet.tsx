@@ -34,6 +34,7 @@ type TaskSelectionSheetProps = {
   };
   selection: Selection[];
   navigationRoute: string;
+  textractResults?: string;
 };
 
 const TaskSelectionSheet: React.FC<TaskSelectionSheetProps> = ({
@@ -41,6 +42,7 @@ const TaskSelectionSheet: React.FC<TaskSelectionSheetProps> = ({
   payload,
   selection,
   navigationRoute,
+  textractResults,
 }) => {
   const { addMessage, resetChatCompletion } = useChatCompletion();
   const actionSheetRef = useRef<ActionSheetRef>(null);
@@ -55,6 +57,9 @@ const TaskSelectionSheet: React.FC<TaskSelectionSheetProps> = ({
             onPress={() => {
               resetChatCompletion();
               addMessage(message);
+              if (textractResults) {
+                addMessage({ role: "user", content: textractResults });
+              }
               SheetManager.hide(sheetId);
               navigation.navigate(navigationRoute);
             }}

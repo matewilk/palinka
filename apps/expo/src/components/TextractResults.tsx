@@ -4,13 +4,21 @@ import { DetectDocumentTextCommandOutput } from "@aws-sdk/client-textract";
 
 interface TextractResultsProps {
   results: DetectDocumentTextCommandOutput;
+  onParse?: (parsedResults: string[]) => void;
 }
 
-const TextractResults: React.FC<TextractResultsProps> = ({ results }) => {
+const TextractResults: React.FC<TextractResultsProps> = ({
+  results,
+  onParse,
+}) => {
   const [textLines, setTextLines] = useState<string[]>([]);
 
   useEffect(() => {
-    setTextLines(parseTextractResults(results));
+    const parsedResults = parseTextractResults(results);
+    setTextLines(parsedResults);
+    if (onParse) {
+      onParse(parsedResults);
+    }
   }, [results]);
 
   return (
@@ -28,7 +36,9 @@ const TextractResults: React.FC<TextractResultsProps> = ({ results }) => {
   );
 };
 
-const parseTextractResults = (results: DetectDocumentTextCommandOutput) => {
+const parseTextractResults = (
+  results: DetectDocumentTextCommandOutput,
+): string[] => {
   if (!results?.Blocks) return [];
 
   const lineBlocks = results.Blocks.filter(

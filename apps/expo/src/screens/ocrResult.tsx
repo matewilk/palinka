@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -23,15 +23,15 @@ const selection: Selection[] = [
   {
     title: "Edit text",
     message: {
-      role: "user",
-      content: "",
+      role: "system",
+      content: "Edit the following text",
     },
   },
   {
     title: "Respond to text",
     message: {
-      role: "user",
-      content: "",
+      role: "system",
+      content: "respond to the following text",
     },
   },
 ];
@@ -45,6 +45,7 @@ export const OcrResultScreen = ({
   navigation,
 }: OcrResultScreenProps) => {
   const { image, data } = route.params;
+  const [parsedResults, setParsedResults] = useState<string[]>([]);
 
   return (
     <SafeAreaView>
@@ -69,7 +70,7 @@ export const OcrResultScreen = ({
           )}
         </Animated.View>
         <View className="my-2 border-b border-gray-300" />
-        <TextractResults results={data} />
+        <TextractResults results={data} onParse={setParsedResults} />
         <Animated.View
           entering={FadeInUp.delay(300).duration(500).springify()}
           className="w-full items-center justify-end pt-2"
@@ -91,6 +92,7 @@ export const OcrResultScreen = ({
         payload={{ navigation: navigation }}
         selection={selection}
         navigationRoute="Prompt"
+        textractResults={parsedResults.join("\n\n")}
       />
     </SafeAreaView>
   );

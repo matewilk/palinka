@@ -31,6 +31,8 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
 
   const firstImage = getFirstImage(image);
 
+  const isProcessing = status === "SCANNING" || status === "ANALYSING";
+
   const handleScan = async () => {
     setHasScanned(true);
     if (firstImage) {
@@ -53,7 +55,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
           justifyContent: "space-between",
           flexDirection: "column",
         }}
-        className="h-full p-4"
+        className="h-full p-2"
       >
         <Animated.View entering={FadeInDown.duration(500).springify()}>
           <View className="items-center">
@@ -75,7 +77,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
                     ? screenHeight * 0.6
                     : screenHeight * 0.25,
                 }}
-                className="w-full bg-primary-lightest"
+                className="w-full rounded-xl bg-primary-lightest"
               />
             </View>
           ) : (
@@ -101,7 +103,10 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
           >
             <TouchableOpacity
               onPress={pickImage}
-              className="w-full items-center justify-center rounded-full bg-primary p-3"
+              className={`w-full items-center justify-center rounded-full bg-primary p-3 ${
+                isProcessing ? "opacity-50" : ""
+              }`}
+              disabled={isProcessing}
             >
               <Text className="text-lg text-white">
                 {translate(tokens.screens.ocrScan.selectImageBtn)}
@@ -110,9 +115,11 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
             <TouchableOpacity
               onPress={handleScan}
               className={`mt-3 w-full items-center justify-center rounded-3xl p-3 ${
-                !firstImage ? "bg-primary opacity-50" : "bg-primary"
+                !firstImage || isProcessing
+                  ? "bg-primary opacity-50"
+                  : "bg-primary"
               }`}
-              disabled={!firstImage}
+              disabled={!firstImage || isProcessing}
             >
               <Text className="text-lg text-white">
                 {translate(tokens.screens.ocrScan.scanBtn)}
