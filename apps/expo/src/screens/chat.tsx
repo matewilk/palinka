@@ -123,27 +123,25 @@ export const ChatScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1">
-      <GiftedChat
-        messages={getGiftedChatMessages()}
-        onSend={(messages) => handleSend(messages)}
-        user={{
-          _id: 1,
-        }}
-        renderBubble={renderBubble}
-        renderInputToolbar={renderInputToolbar}
-        renderSend={renderSend}
-        renderFooter={renderFooter}
-        bottomOffset={20}
-        text={prompt}
-        onInputTextChanged={(text) => setPrompt(text)}
-        renderAvatar={() => null}
-        placeholder={
-          process.env.NODE_ENV === "test"
-            ? "test-chat-input-placeholder"
-            : translate(tokens.screens.chat.inputPlaceholder)
-        }
-      />
-    </SafeAreaView>
+    <GiftedChat
+      messages={getGiftedChatMessages()}
+      onSend={(messages) => handleSend(messages)}
+      user={{
+        _id: 1,
+      }}
+      renderBubble={renderBubble}
+      renderInputToolbar={renderInputToolbar}
+      renderSend={renderSend}
+      renderFooter={renderFooter}
+      bottomOffset={20}
+      text={prompt}
+      onInputTextChanged={(text) => setPrompt(text)}
+      renderAvatar={() => null}
+      placeholder={
+        process.env.NODE_ENV === "test"
+          ? "test-chat-input-placeholder"
+          : translate(tokens.screens.chat.inputPlaceholder)
+      }
+    />
   );
 };
