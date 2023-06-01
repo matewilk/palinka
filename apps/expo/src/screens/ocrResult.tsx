@@ -21,17 +21,17 @@ import { translate, tokens } from "../i18n";
 
 const selection: Selection[] = [
   {
-    title: "Edit text",
+    title: translate(tokens.selection.ocrTasks.editText.title),
     message: {
       role: "system",
-      content: "Edit the following text",
+      content: translate(tokens.selection.ocrTasks.editText.content),
     },
   },
   {
-    title: "Respond to text",
+    title: translate(tokens.selection.ocrTasks.respondToText.title),
     message: {
       role: "system",
-      content: "respond to the following text",
+      content: translate(tokens.selection.ocrTasks.respondToText.content),
     },
   },
 ];

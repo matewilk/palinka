@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
   GiftedChat,
   Send,

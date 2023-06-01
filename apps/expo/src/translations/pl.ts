@@ -56,6 +56,14 @@ const pl = {
   selectImageBtn: "Wybierz zdjęcie",
   scanBtn: "Skanuj",
 
+  // OCR Tasks
+  editTextTitle: "Edytuj tekst",
+  editTextContent:
+    "Jesteś ekspertem w edycji i korekcie dokumentów, emaili, formularzy, tekstów i wiadomości i chcesz pomóc zapewnić, że wiadomość jest jasna i zwięzła i poprawna gramatycznie poprzez edycję dostarczonej wiadomości.",
+  respondToTextTitle: "Odpowiedz na tekst",
+  respondToTextContent:
+    "Jesteś ekspertem w komunikacji i odpowiadaniu na wiadomości, dokumenty i formularze i różne rodzaje wiadomości. Będziesz odpowiadać na wiadomości, dokumenty i formularze i zapewniać, że wiadomość jest jasna, zwięzła i czytelna dla odbiorcy i poprawna gramatycznie.",
+
   // Drawer
   drawerHome: "Strona główna",
   drawerScaner: "Skaner",

@@ -77,6 +77,21 @@ export const taskSelection = {
   createLessonPlan: CreateLessonPlan,
 };
 
+export enum EditText {
+  title = "editTextTitle",
+  content = "editTextContent",
+}
+
+export enum RespondToText {
+  title = "respondToTextTitle",
+  content = "respondToTextContent",
+}
+
+export const ocrTaskSelection = {
+  editText: EditText,
+  respondToText: RespondToText,
+};
+
 export const tokens = {
   screens: {
     welcome: WelcomeScreen,
@@ -90,6 +105,7 @@ export const tokens = {
   },
   selection: {
     tasks: taskSelection,
+    ocrTasks: ocrTaskSelection,
   },
   drawer: DrawerPanel,
 };

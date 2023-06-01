@@ -3,9 +3,9 @@ import type { StackScreenProps } from "@react-navigation/stack";
 import { SheetManager } from "react-native-actions-sheet";
 import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
-import { tokens, translate } from "../i18n";
 import TaskSelectionSheet from "../components/TaskSelectionSheet";
 import { Selection } from "../types/app";
+import { tokens, translate } from "../i18n";
 
 const selection: Selection[] = [
   {
