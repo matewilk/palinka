@@ -1,16 +1,11 @@
-import { useRef } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
-import ActionSheet, {
-  ActionSheetRef,
-  SheetProps,
-  SheetManager,
-} from "react-native-actions-sheet";
+import { SheetManager } from "react-native-actions-sheet";
 import Animated, { FadeInUp, FadeInDown } from "react-native-reanimated";
 
-import { tokens, translate } from "../i18n";
-import { useChatCompletion } from "../providers/ChatCompletionContextProvider";
+import TaskSelectionSheet from "../components/TaskSelectionSheet";
 import { Selection } from "../types/app";
+import { tokens, translate } from "../i18n";
 
 const selection: Selection[] = [
   {
@@ -35,48 +30,6 @@ const selection: Selection[] = [
     },
   },
 ];
-
-const SelectionButton = ({
-  title,
-  onPress,
-}: {
-  title: string;
-  onPress: () => void;
-}) => {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      className="my-2 w-full items-center justify-center rounded-3xl border border-primary p-3"
-    >
-      <Text className="text-base text-primary-dark">{title}</Text>
-    </TouchableOpacity>
-  );
-};
-
-const TaskSelectionSheet = ({ sheetId, payload }: SheetProps) => {
-  const { addMessage, resetChatCompletion } = useChatCompletion();
-
-  const actionSheetRef = useRef<ActionSheetRef>(null);
-  const { navigation } = payload;
-  return (
-    <ActionSheet ref={actionSheetRef} id={sheetId}>
-      <View className="p-4">
-        {selection.map(({ title, message }) => (
-          <SelectionButton
-            key={title}
-            title={title}
-            onPress={() => {
-              resetChatCompletion();
-              addMessage(message);
-              SheetManager.hide("task-selection");
-              navigation.navigate("Prompt");
-            }}
-          />
-        ))}
-      </View>
-    </ActionSheet>
-  );
-};
 
 import HomeImage from "../../assets/welcome_image.svg";
 import { MainStackParamList } from "../navigation/MainStackNavigator";
@@ -126,6 +79,8 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
       <TaskSelectionSheet
         sheetId="task-selection"
         payload={{ navigation: navigation }}
+        selection={selection}
+        navigationRoute="Prompt"
       />
     </SafeAreaView>
   );

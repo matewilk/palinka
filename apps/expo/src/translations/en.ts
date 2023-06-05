@@ -52,6 +52,19 @@ const en = {
   chatSubmitBtn: "Send",
   assistantWorking: "I'm working on your request...",
 
+  // OCR Scan Screen
+  ocrScanSubheader: "Select image from gallery to start scanning.",
+  selectImageBtn: "Select image",
+  scanBtn: "Scan",
+
+  // OCR Tasks
+  editTextTitle: "Edit Text",
+  editTextContent:
+    "You are an expert in editing and proofreading documents, emails, texts and forms and messages and you want to help ensure that the message is clear and concise by editing a provided text.",
+  respondToTextTitle: "Respond to Text",
+  respondToTextContent:
+    "You are an expert in communication and responding to messages, documents, emails, text and forms and you want to help ensure that the message is clear and concise by responding to a provided text.",
+
   // Drawer
   drawerHome: "Home",
   drawerScaner: "Scaner",

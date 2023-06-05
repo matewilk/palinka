@@ -10,10 +10,14 @@ export const getFirstImage = (
   return image?.assets?.[0];
 };
 
-// Define status as a TypeScript enum
+export const isPortrait = (image: ImagePicker.ImagePickerAsset): boolean => {
+  return image.width < image.height;
+};
+
 export enum UploadStatus {
   IDLE = "IDLE",
-  UPLOADING = "UPLOADING",
+  SCANNING = "SCANNING",
+  ANALYSING = "ANALYSING",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED",
 }
@@ -26,7 +30,7 @@ export const useImageUpload = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { mutateAsync: fetchPresignedUrl } = trpc.s3.getSignedUrl.useMutation();
-  const { mutateAsync: detectText } = trpc.s3.detectText.useMutation();
+  const { mutateAsync: detectTextMutation } = trpc.s3.detectText.useMutation();
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,7 +43,7 @@ export const useImageUpload = () => {
   };
 
   const uploadImage = async () => {
-    setStatus(UploadStatus.UPLOADING);
+    setStatus(UploadStatus.SCANNING);
     setError(null);
 
     try {
@@ -69,9 +73,8 @@ export const useImageUpload = () => {
         });
 
         if (result.ok) {
-          const data = await detectText({ key: filename });
           setStatus(UploadStatus.COMPLETED);
-          return data;
+          return filename;
         } else {
           setError("Upload failed");
           setStatus(UploadStatus.FAILED);
@@ -83,5 +86,25 @@ export const useImageUpload = () => {
     }
   };
 
-  return { image, pickImage, uploadImage, status, error };
+  const detectText = async (filename: string) => {
+    setStatus(UploadStatus.ANALYSING);
+    setError(null);
+
+    try {
+      const data = await detectTextMutation({ key: filename });
+
+      if (data) {
+        setStatus(UploadStatus.COMPLETED);
+        return data;
+      } else {
+        setError("Analysis failed");
+        setStatus(UploadStatus.FAILED);
+      }
+    } catch (err) {
+      setError((err as Error)?.message);
+      setStatus(UploadStatus.FAILED);
+    }
+  };
+
+  return { image, pickImage, uploadImage, detectText, status, error };
 };

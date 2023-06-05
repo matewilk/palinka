@@ -68,7 +68,7 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
           />
           <TouchableOpacity
             onPress={() => {
-              resetUserPrompt();
+              // resetUserPrompt();
               addMessage({ role: "user", content: prompt });
               navigation.navigate("Chat");
             }}

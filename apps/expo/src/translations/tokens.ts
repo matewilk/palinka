@@ -43,6 +43,12 @@ export enum ChatScreen {
   assistantWorking = "assistantWorking",
 }
 
+export enum OcrScanScreen {
+  subheader = "ocrScanSubheader",
+  selectImageBtn = "selectImageBtn",
+  scanBtn = "scanBtn",
+}
+
 export enum ComposeParentNote {
   title = "composeParentNoteTitle",
   content = "composeParentNoteContent",
@@ -71,6 +77,21 @@ export const taskSelection = {
   createLessonPlan: CreateLessonPlan,
 };
 
+export enum EditText {
+  title = "editTextTitle",
+  content = "editTextContent",
+}
+
+export enum RespondToText {
+  title = "respondToTextTitle",
+  content = "respondToTextContent",
+}
+
+export const ocrTaskSelection = {
+  editText: EditText,
+  respondToText: RespondToText,
+};
+
 export const tokens = {
   screens: {
     welcome: WelcomeScreen,
@@ -80,9 +101,11 @@ export const tokens = {
     home: HomeScreen,
     prompt: PromptScreen,
     chat: ChatScreen,
+    ocrScan: OcrScanScreen,
   },
   selection: {
     tasks: taskSelection,
+    ocrTasks: ocrTaskSelection,
   },
   drawer: DrawerPanel,
 };
