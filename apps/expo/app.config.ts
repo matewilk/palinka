@@ -22,12 +22,17 @@ const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "your.bundle.identifier",
+    infoPlist: {
+      NSPhotoLibraryUsageDescription:
+        "This app needs access to your photo library for OCR processing.",
+    },
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#ffffff",
     },
+    permissions: ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
   },
   extra: {
     eas: {
@@ -35,7 +40,7 @@ const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
     },
     CLERK_PUBLISHABLE_KEY,
   },
-  plugins: ["./expo-plugins/with-modify-gradle.js"],
+  plugins: ["./expo-plugins/with-modify-gradle.js", "expo-image-picker"],
 });
 
 export default defineConfig;

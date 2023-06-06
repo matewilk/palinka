@@ -33,12 +33,31 @@ export const useImageUpload = () => {
   const { mutateAsync: detectTextMutation } = trpc.s3.detectText.useMutation();
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
+    // Reset status and error states
+    setStatus(UploadStatus.IDLE);
+    setError(null);
 
-    if (!result.canceled) {
-      setImage(result);
+    // Request media library permissions
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status !== "granted") {
+      setError("Missing media library permissions");
+      setStatus(UploadStatus.FAILED);
+      return;
+    }
+
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+      });
+
+      if (!result.canceled) {
+        setImage(result);
+      }
+    } catch (err) {
+      setError((err as Error)?.message);
+      setStatus(UploadStatus.FAILED);
     }
   };
 

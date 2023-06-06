@@ -25,7 +25,7 @@ const screenHeight = Dimensions.get("window").height;
 type OcrScanScreenProps = StackScreenProps<OcrStackParamList, "Scaner">;
 
 export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
-  const { image, pickImage, uploadImage, detectText, status } =
+  const { image, pickImage, uploadImage, detectText, status, error } =
     useImageUpload();
   const [hasScanned, setHasScanned] = useState(false);
 
@@ -88,7 +88,11 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
 
           <View className="flex items-center p-1">
             <Text className="text-center text-xl">
-              {hasScanned ? `${status.toLowerCase()}` : " "}
+              {status === "FAILED"
+                ? error
+                : hasScanned
+                ? `${status.toLowerCase()}`
+                : " "}
             </Text>
           </View>
         </Animated.View>
