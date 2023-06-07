@@ -69,6 +69,14 @@ const pl = {
   drawerScaner: "Skaner",
   drawerProfile: "Profil",
   drawerLogout: "Wyloguj",
+
+  // Alerts & Messages
+  missingLibraryPermission: "Brak uprawnień dostępu do galerii.",
+  permissionRequired: "Wymagane uprawnienia",
+  permissionRequiredMessage:
+    "Aby kontynuować, musisz udzielić uprawnień do galerii zdjęć.",
+  alertCancel: "Anuluj",
+  alertOpenSettingsBtn: "Otwórz ustawienia",
 };
 
 export default pl;

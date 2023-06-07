@@ -1,8 +1,10 @@
 import { useState } from "react";
 import * as Crypto from "expo-crypto";
 import * as ImagePicker from "expo-image-picker";
+import { Linking, Platform, Alert } from "react-native";
 
 import { trpc } from "../utils/trpc";
+import { translate, tokens } from "../i18n";
 
 export const getFirstImage = (
   image: ImagePicker.ImagePickerResult | undefined,
@@ -32,6 +34,14 @@ export const useImageUpload = () => {
   const { mutateAsync: fetchPresignedUrl } = trpc.s3.getSignedUrl.useMutation();
   const { mutateAsync: detectTextMutation } = trpc.s3.detectText.useMutation();
 
+  const openAppSettings = () => {
+    if (Platform.OS === "ios") {
+      Linking.openURL("app-settings:");
+    } else {
+      Linking.openSettings();
+    }
+  };
+
   const pickImage = async () => {
     // Reset status and error states
     setStatus(UploadStatus.IDLE);
@@ -41,14 +51,25 @@ export const useImageUpload = () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== "granted") {
-      setError("Missing media library permissions");
+      setError(translate(tokens.alerts.missingLibraryPermission));
       setStatus(UploadStatus.FAILED);
+      Alert.alert(
+        translate(tokens.alerts.permissionRequired),
+        translate(tokens.alerts.permissionRequiredMessage),
+        [
+          { text: translate(tokens.alerts.alertCancelBtn), style: "cancel" },
+          {
+            text: translate(tokens.alerts.alertOpenSettingsBtn),
+            onPress: openAppSettings,
+          },
+        ],
+      );
       return;
     }
 
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
       });
 
