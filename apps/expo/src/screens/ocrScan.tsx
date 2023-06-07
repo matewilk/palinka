@@ -19,14 +19,22 @@ import {
   getFirstImage,
   isPortrait,
 } from "../hooks/useImageUpload";
+import { PermissionAlert } from "../components/PermissionAlert";
 
 const screenHeight = Dimensions.get("window").height;
 
 type OcrScanScreenProps = StackScreenProps<OcrStackParamList, "Scaner">;
 
 export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
-  const { image, pickImage, uploadImage, detectText, status, error } =
-    useImageUpload();
+  const {
+    image,
+    pickImage,
+    uploadImage,
+    detectText,
+    showPermissionAlert,
+    status,
+    error,
+  } = useImageUpload();
   const [hasScanned, setHasScanned] = useState(false);
 
   const firstImage = getFirstImage(image);
@@ -132,6 +140,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
           </Animated.View>
         </Animated.View>
       </ScrollView>
+      {showPermissionAlert && <PermissionAlert />}
     </SafeAreaView>
   );
 };

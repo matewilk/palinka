@@ -1,7 +1,6 @@
 import { useState } from "react";
 import * as Crypto from "expo-crypto";
 import * as ImagePicker from "expo-image-picker";
-import { Linking, Platform, Alert } from "react-native";
 
 import { trpc } from "../utils/trpc";
 import { translate, tokens } from "../i18n";
@@ -31,16 +30,10 @@ export const useImageUpload = () => {
   const [status, setStatus] = useState<UploadStatus>(UploadStatus.IDLE);
   const [error, setError] = useState<string | null>(null);
 
+  const [showPermissionAlert, setShowPermissionAlert] = useState(false);
+
   const { mutateAsync: fetchPresignedUrl } = trpc.s3.getSignedUrl.useMutation();
   const { mutateAsync: detectTextMutation } = trpc.s3.detectText.useMutation();
-
-  const openAppSettings = () => {
-    if (Platform.OS === "ios") {
-      Linking.openURL("app-settings:");
-    } else {
-      Linking.openSettings();
-    }
-  };
 
   const pickImage = async () => {
     // Reset status and error states
@@ -53,17 +46,7 @@ export const useImageUpload = () => {
     if (status !== "granted") {
       setError(translate(tokens.alerts.missingLibraryPermission));
       setStatus(UploadStatus.FAILED);
-      Alert.alert(
-        translate(tokens.alerts.permissionRequired),
-        translate(tokens.alerts.permissionRequiredMessage),
-        [
-          { text: translate(tokens.alerts.alertCancelBtn), style: "cancel" },
-          {
-            text: translate(tokens.alerts.alertOpenSettingsBtn),
-            onPress: openAppSettings,
-          },
-        ],
-      );
+      setShowPermissionAlert(true);
       return;
     }
 
@@ -146,5 +129,13 @@ export const useImageUpload = () => {
     }
   };
 
-  return { image, pickImage, uploadImage, detectText, status, error };
+  return {
+    image,
+    pickImage,
+    uploadImage,
+    detectText,
+    showPermissionAlert,
+    status,
+    error,
+  };
 };
