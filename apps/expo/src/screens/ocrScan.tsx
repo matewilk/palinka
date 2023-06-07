@@ -82,7 +82,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
                 style={{
                   aspectRatio: firstImage.width / firstImage.height,
                   height: isPortrait(firstImage)
-                    ? screenHeight * 0.6
+                    ? screenHeight * 0.5
                     : screenHeight * 0.25,
                 }}
                 className="w-full rounded-xl bg-primary-lightest"
