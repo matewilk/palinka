@@ -71,10 +71,10 @@ const pl = {
   drawerLogout: "Wyloguj",
 
   // Alerts & Messages
-  missingLibraryPermission: "Brak uprawnień dostępu do galerii.",
+  missingLibraryPermission: "Brak uprawnień dostępu do galerii zdjęć.",
   permissionRequired: "Wymagane uprawnienia",
   permissionRequiredMessage:
-    "Aby kontynuować, musisz udzielić uprawnień do galerii zdjęć.",
+    "Aby kontynuować, udziel uprawnień dostępu do galerii zdjęć.",
   alertCancel: "Anuluj",
   alertOpenSettingsBtn: "Otwórz ustawienia",
 };
