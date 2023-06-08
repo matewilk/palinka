@@ -4,6 +4,7 @@ import {
   ScrollView,
   View,
   Text,
+  TextInput,
   TouchableOpacity,
 } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
@@ -19,7 +20,10 @@ type PromptScreenProps = StackScreenProps<MainStackParamList, "Prompt">;
 
 export const PromptScreen = ({ navigation }: PromptScreenProps) => {
   const [prompt, setPrompt] = useState("");
-  const { addMessage, resetUserPrompt } = useChatCompletion();
+  const { addMessage, resetUserPrompt, getFirstUserMessage } =
+    useChatCompletion();
+
+  const firstUserMessage = getFirstUserMessage();
 
   const handlePromptChange = (newPrompt: string) => {
     setPrompt(newPrompt);
@@ -33,32 +37,46 @@ export const PromptScreen = ({ navigation }: PromptScreenProps) => {
           justifyContent: "space-between",
           flexDirection: "column",
         }}
-        className="h-full p-4"
+        className="h-full p-4 pt-2"
       >
         <Animated.View
-          className="justify-start pt-24"
+          className={`h-1 flex-1 justify-center ${
+            firstUserMessage ? "pt-0" : "pt-24"
+          }`}
           entering={FadeInDown.duration(500).springify()}
         >
           <View className="items-center">
-            <PromptImage width={250} height={250} />
+            {firstUserMessage ? (
+              <ScrollView className="h-[99%]">
+                <TextInput
+                  value={firstUserMessage.content}
+                  editable={false}
+                  multiline
+                />
+              </ScrollView>
+            ) : (
+              <>
+                <PromptImage width={250} height={250} />
 
-            <Animated.Text
-              entering={FadeInDown.delay(100).duration(500).springify()}
-              className="mt-4 p-4 pb-0 text-lg"
-            >
-              {translate(tokens.screens.prompt.header)}
-            </Animated.Text>
-            <Animated.Text
-              entering={FadeInDown.delay(200).duration(500).springify()}
-              className="mt-4 px-4 text-lg"
-            >
-              {translate(tokens.screens.prompt.subheader)}
-            </Animated.Text>
+                <Animated.Text
+                  entering={FadeInDown.delay(100).duration(500).springify()}
+                  className="mt-4 p-4 pb-0 text-lg"
+                >
+                  {translate(tokens.screens.prompt.header)}
+                </Animated.Text>
+                <Animated.Text
+                  entering={FadeInDown.delay(200).duration(500).springify()}
+                  className="mt-4 px-4 text-lg"
+                >
+                  {translate(tokens.screens.prompt.subheader)}
+                </Animated.Text>
+              </>
+            )}
           </View>
         </Animated.View>
 
         <Animated.View
-          className="justify-end"
+          className="justify-end pt-2"
           entering={FadeInUp.delay(300).duration(500).springify()}
         >
           <AutoExpandingTextInput

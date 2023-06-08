@@ -21,6 +21,7 @@ export type ChatCompletionContextType = {
   addMessage: ({ role, content }: Message) => void;
   resetChatCompletion: () => void;
   resetUserPrompt: () => void;
+  getFirstUserMessage: () => Message | undefined;
   isAssistant: boolean;
   getGiftedChatMessages: () => IMessage[];
 };
@@ -48,6 +49,10 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
     setChatCompletion((prevChatCompletion) =>
       prevChatCompletion.filter((message) => message.role === "system"),
     );
+  };
+
+  const getFirstUserMessage = (): Message | undefined => {
+    return chatCompletion.find((message) => message.role === "user");
   };
 
   const isAssistant =
@@ -82,6 +87,7 @@ export const ChatCompletionProvider = (props: PropsWithChildren) => {
         addMessage,
         resetChatCompletion,
         resetUserPrompt,
+        getFirstUserMessage,
         isAssistant,
         getGiftedChatMessages,
       }}
