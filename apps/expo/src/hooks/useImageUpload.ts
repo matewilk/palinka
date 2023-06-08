@@ -3,6 +3,7 @@ import * as Crypto from "expo-crypto";
 import * as ImagePicker from "expo-image-picker";
 
 import { trpc } from "../utils/trpc";
+import { translate, tokens } from "../i18n";
 
 export const getFirstImage = (
   image: ImagePicker.ImagePickerResult | undefined,
@@ -29,16 +30,38 @@ export const useImageUpload = () => {
   const [status, setStatus] = useState<UploadStatus>(UploadStatus.IDLE);
   const [error, setError] = useState<string | null>(null);
 
+  const [showPermissionAlert, setShowPermissionAlert] = useState(false);
+
   const { mutateAsync: fetchPresignedUrl } = trpc.s3.getSignedUrl.useMutation();
   const { mutateAsync: detectTextMutation } = trpc.s3.detectText.useMutation();
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
+    // Reset status and error states
+    setStatus(UploadStatus.IDLE);
+    setError(null);
 
-    if (!result.canceled) {
-      setImage(result);
+    // Request media library permissions
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status !== "granted") {
+      setError(translate(tokens.alerts.missingLibraryPermission));
+      setStatus(UploadStatus.FAILED);
+      setShowPermissionAlert(true);
+      return;
+    }
+
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+
+      if (!result.canceled) {
+        setImage(result);
+      }
+    } catch (err) {
+      setError((err as Error)?.message);
+      setStatus(UploadStatus.FAILED);
     }
   };
 
@@ -106,5 +129,13 @@ export const useImageUpload = () => {
     }
   };
 
-  return { image, pickImage, uploadImage, detectText, status, error };
+  return {
+    image,
+    pickImage,
+    uploadImage,
+    detectText,
+    showPermissionAlert,
+    status,
+    error,
+  };
 };

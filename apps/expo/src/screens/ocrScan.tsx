@@ -19,14 +19,22 @@ import {
   getFirstImage,
   isPortrait,
 } from "../hooks/useImageUpload";
+import { PermissionAlert } from "../components/PermissionAlert";
 
 const screenHeight = Dimensions.get("window").height;
 
 type OcrScanScreenProps = StackScreenProps<OcrStackParamList, "Scaner">;
 
 export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
-  const { image, pickImage, uploadImage, detectText, status } =
-    useImageUpload();
+  const {
+    image,
+    pickImage,
+    uploadImage,
+    detectText,
+    showPermissionAlert,
+    status,
+    error,
+  } = useImageUpload();
   const [hasScanned, setHasScanned] = useState(false);
 
   const firstImage = getFirstImage(image);
@@ -74,7 +82,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
                 style={{
                   aspectRatio: firstImage.width / firstImage.height,
                   height: isPortrait(firstImage)
-                    ? screenHeight * 0.6
+                    ? screenHeight * 0.5
                     : screenHeight * 0.25,
                 }}
                 className="w-full rounded-xl bg-primary-lightest"
@@ -88,7 +96,11 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
 
           <View className="flex items-center p-1">
             <Text className="text-center text-xl">
-              {hasScanned ? `${status.toLowerCase()}` : " "}
+              {status === "FAILED"
+                ? error
+                : hasScanned
+                ? `${status.toLowerCase()}`
+                : " "}
             </Text>
           </View>
         </Animated.View>
@@ -128,6 +140,7 @@ export const OcrScanScreen = ({ navigation }: OcrScanScreenProps) => {
           </Animated.View>
         </Animated.View>
       </ScrollView>
+      {showPermissionAlert && <PermissionAlert />}
     </SafeAreaView>
   );
 };

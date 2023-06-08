@@ -92,6 +92,14 @@ export const ocrTaskSelection = {
   respondToText: RespondToText,
 };
 
+export enum Alerts {
+  missingLibraryPermission = "missingLibraryPermission",
+  permissionRequired = "permissionRequired",
+  permissionRequiredMessage = "permissionRequiredMessage",
+  alertCancelBtn = "alertCancelBtn",
+  alertOpenSettingsBtn = "alertOpenSettingsBtn",
+}
+
 export const tokens = {
   screens: {
     welcome: WelcomeScreen,
@@ -108,4 +116,5 @@ export const tokens = {
     ocrTasks: ocrTaskSelection,
   },
   drawer: DrawerPanel,
+  alerts: Alerts,
 };

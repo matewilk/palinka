@@ -70,6 +70,14 @@ const en = {
   drawerScaner: "Scaner",
   drawerProfile: "Profile",
   drawerLogout: "Logout",
+
+  // Alerts & Messages
+  missingLibraryPermission: "Missing media library permission.",
+  permissionRequired: "Permission Required",
+  permissionRequiredMessage:
+    "This app needs access to your photo library for OCR processing. Please go to settings and grant permission.",
+  alertCancelBtn: "Cancel",
+  alertOpenSettingsBtn: "Open Settings",
 };
 
 export default en;
